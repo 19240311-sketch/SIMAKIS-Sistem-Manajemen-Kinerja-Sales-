@@ -32,7 +32,7 @@
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    <span>+ Catat Transaksi Baru</span>
+                    <span>Catat Transaksi Baru</span>
                 </a>
                 <a href="{{ route('prospects.create') }}"
                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 shadow-xs transition-all active:scale-95">

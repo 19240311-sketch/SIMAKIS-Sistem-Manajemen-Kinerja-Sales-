@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AdminTrainingController;
 use App\Http\Controllers\AdminWeeklyTestController;
 use App\Http\Controllers\AuthController;
@@ -57,6 +58,9 @@ Route::middleware('auth')->group(function () {
     // 1. Dashboard SIMAKIS
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/demo/clean', [DashboardController::class, 'cleanDemoData'])->name('demo.clean');
+
+    // AJAX: Notifikasi real-time (dipanggil client-side setelah halaman load, hindari timeout)
+    Route::get('/api/notifications', [NotificationController::class, 'fetch'])->name('notifications.fetch');
 
     // 2. Data Sales & Peringkat Penjualan
     Route::resource('sales', SalesDataController::class)->names('sales');

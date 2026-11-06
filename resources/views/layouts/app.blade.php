@@ -404,11 +404,7 @@
                     <span>{{ \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                 </div>
 
-                <!-- In-App Notification Bell -->
-                @php
-                    $simakisNotifs = \App\Services\NotificationService::getNotificationsFor(auth()->user());
-                    $simakisNotifCount = $simakisNotifs->count();
-                @endphp
+                <!-- In-App Notification Bell (AJAX - tidak memperlambat page load) -->
                 <div class="relative" id="simakis-notif-container">
                     <button type="button"
                             id="simakis-notif-btn"
@@ -417,86 +413,50 @@
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                         </svg>
-                        @if($simakisNotifCount > 0)
-                            <!-- Posisi badge di pojok kanan atas ikon lonceng -->
-                            <span class="absolute -top-1 -right-1 flex h-4 w-4">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-4 w-4 bg-rose-600 text-white text-[10px] font-black items-center justify-center leading-none shadow-xs ring-2 ring-white">
-                                    {{ $simakisNotifCount > 9 ? '9+' : $simakisNotifCount }}
-                                </span>
-                            </span>
-                        @endif
+                        <!-- Badge notifikasi - diisi oleh JavaScript setelah fetch AJAX -->
+                        <span id="simakis-notif-badge" class="hidden absolute -top-1 -right-1 flex h-4 w-4">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span id="simakis-notif-count" class="relative inline-flex rounded-full h-4 w-4 bg-rose-600 text-white text-[10px] font-black items-center justify-center leading-none shadow-xs ring-2 ring-white">0</span>
+                        </span>
                     </button>
 
-                    <!-- Dropdown Panel Rapi -->
+                    <!-- Dropdown Panel -->
                     <div id="simakis-notif-dropdown"
                          class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-slate-200 z-50 overflow-hidden divide-y divide-slate-100">
+                        <!-- Header -->
                         <div class="px-4 py-3 bg-slate-50/90 border-b border-slate-100 flex items-center justify-between gap-2">
                             <div class="flex items-center gap-2">
                                 <span class="font-bold text-xs text-slate-900 tracking-tight">Notifikasi</span>
-                                @if($simakisNotifCount > 0)
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700 whitespace-nowrap">
-                                        {{ $simakisNotifCount }} Baru
-                                    </span>
-                                @endif
+                                <span id="simakis-notif-header-badge" class="hidden inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700 whitespace-nowrap"></span>
                             </div>
                             <span class="text-[10px] text-slate-400 font-medium whitespace-nowrap">SIMAKIS Alert</span>
                         </div>
 
-                        <div class="max-h-80 overflow-y-auto divide-y divide-slate-100">
-                            @forelse($simakisNotifs as $notif)
-                                <a href="{{ $notif['action_url'] ?? $notif['url'] ?? '#' }}"
-                                   class="p-3.5 flex items-start gap-3 hover:bg-slate-50/90 transition group block">
-                                    <div class="h-9 w-9 rounded-xl shrink-0 flex items-center justify-center text-xs font-bold shadow-xs
-                                        @if(($notif['type'] ?? '') === 'target') bg-purple-50 text-purple-600
-                                        @elseif(($notif['type'] ?? '') === 'meeting') bg-blue-50 text-blue-600
-                                        @elseif(($notif['type'] ?? '') === 'followup') bg-amber-50 text-amber-600
-                                        @else bg-emerald-50 text-emerald-600 @endif">
-                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                            @if(($notif['icon'] ?? '') === 'trophy')
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.004 0A7.472 7.472 0 0018 7.5V6a2.25 2.25 0 00-2.25-2.25h-7.5A2.25 2.25 0 006 6v1.5c0 2.58 1.306 4.856 3.25 6.125" />
-                                            @elseif(($notif['icon'] ?? '') === 'calendar')
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                                            @elseif(($notif['icon'] ?? '') === 'clock')
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            @else
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
-                                            @endif
-                                        </svg>
+                        <!-- Body: skeleton saat loading, lalu diisi JS -->
+                        <div id="simakis-notif-body" class="max-h-80 overflow-y-auto divide-y divide-slate-100">
+                            <!-- Skeleton loading -->
+                            <div id="simakis-notif-skeleton" class="p-4 space-y-3">
+                                <div class="flex items-start gap-3 animate-pulse">
+                                    <div class="h-9 w-9 rounded-xl bg-slate-200 shrink-0"></div>
+                                    <div class="flex-1 space-y-2">
+                                        <div class="h-3 bg-slate-200 rounded w-3/4"></div>
+                                        <div class="h-3 bg-slate-200 rounded w-full"></div>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <div class="flex items-center justify-between gap-1.5">
-                                            <p class="text-xs font-bold text-slate-900 group-hover:text-blue-600 truncate transition">
-                                                {{ $notif['title'] ?? 'Pemberitahuan' }}
-                                            </p>
-                                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap
-                                                @if(($notif['level'] ?? '') === 'warning') bg-amber-50 text-amber-700 border border-amber-200/70
-                                                @elseif(($notif['level'] ?? '') === 'success') bg-emerald-50 text-emerald-700 border border-emerald-200/70
-                                                @else bg-blue-50 text-blue-700 border border-blue-200/70 @endif">
-                                                {{ $notif['badge'] ?? $notif['time'] ?? 'Info' }}
-                                            </span>
-                                        </div>
-                                        <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                                            {{ $notif['message'] ?? '' }}
-                                        </p>
-                                    </div>
-                                </a>
-                            @empty
-                                <div class="p-6 text-center">
-                                    <div class="h-10 w-10 mx-auto rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-base mb-2 font-bold">
-                                        ✓
-                                    </div>
-                                    <p class="text-xs font-bold text-slate-700">Semua Tugas Up-to-Date</p>
-                                    <p class="text-[11px] text-slate-400 mt-1">Tidak ada jadwal rapat atau follow-up tertunda saat ini.</p>
                                 </div>
-                            @endforelse
+                                <div class="flex items-start gap-3 animate-pulse">
+                                    <div class="h-9 w-9 rounded-xl bg-slate-200 shrink-0"></div>
+                                    <div class="flex-1 space-y-2">
+                                        <div class="h-3 bg-slate-200 rounded w-1/2"></div>
+                                        <div class="h-3 bg-slate-200 rounded w-5/6"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        @if($simakisNotifCount > 0)
-                            <div class="py-2.5 px-4 bg-slate-50/70 border-t border-slate-100 text-center">
-                                <span class="text-[11px] text-slate-400 font-medium">Klik notifikasi untuk langsung menuju halaman terkait</span>
-                            </div>
-                        @endif
+                        <!-- Footer -->
+                        <div id="simakis-notif-footer" class="hidden py-2.5 px-4 bg-slate-50/70 border-t border-slate-100 text-center">
+                            <span class="text-[11px] text-slate-400 font-medium">Klik notifikasi untuk langsung menuju halaman terkait</span>
+                        </div>
                     </div>
                 </div>
 
@@ -595,16 +555,111 @@
             backdrop.classList.toggle('hidden');
         }
 
-        // Notification dropdown toggle
+        // Notification dropdown toggle + AJAX fetch
         document.addEventListener('DOMContentLoaded', function () {
-            const btn = document.getElementById('simakis-notif-btn');
-            const dropdown = document.getElementById('simakis-notif-dropdown');
+            const btn       = document.getElementById('simakis-notif-btn');
+            const dropdown  = document.getElementById('simakis-notif-dropdown');
             const container = document.getElementById('simakis-notif-container');
+            const badge     = document.getElementById('simakis-notif-badge');
+            const countEl   = document.getElementById('simakis-notif-count');
+            const headerBadge = document.getElementById('simakis-notif-header-badge');
+            const body      = document.getElementById('simakis-notif-body');
+            const skeleton  = document.getElementById('simakis-notif-skeleton');
+            const footer    = document.getElementById('simakis-notif-footer');
+
+            let loaded = false;
+
+            // Icon SVG helpers
+            function iconSvg(icon) {
+                const paths = {
+                    trophy:   'M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.004 0A7.472 7.472 0 0018 7.5V6a2.25 2.25 0 00-2.25-2.25h-7.5A2.25 2.25 0 006 6v1.5c0 2.58 1.306 4.856 3.25 6.125',
+                    calendar: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5',
+                    clock:    'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z',
+                    document: 'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z',
+                };
+                return `<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="${paths[icon] || paths.document}" /></svg>`;
+            }
+
+            function iconBg(type) {
+                const map = { target: 'background:#f5f3ff;color:#9333ea', meeting: 'background:#eff6ff;color:#2563eb', followup: 'background:#fffbeb;color:#d97706', handover: 'background:#ecfdf5;color:#059669' };
+                return map[type] || 'background:#ecfdf5;color:#059669';
+            }
+
+            function levelBadgeCls(level) {
+                if (level === 'warning') return 'background:#fffbeb;color:#b45309;border:1px solid #fde68a';
+                if (level === 'success') return 'background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0';
+                return 'background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe';
+            }
+
+            function renderNotifications(notifs) {
+                // Hide skeleton
+                if (skeleton) skeleton.remove();
+
+                if (notifs.length === 0) {
+                    body.innerHTML = `<div class="p-6 text-center">
+                        <div class="h-10 w-10 mx-auto rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-base mb-2 font-bold">✓</div>
+                        <p class="text-xs font-bold text-slate-700">Semua Tugas Up-to-Date</p>
+                        <p class="text-[11px] text-slate-400 mt-1">Tidak ada jadwal rapat atau follow-up tertunda saat ini.</p>
+                    </div>`;
+                    return;
+                }
+
+                body.innerHTML = notifs.map(n => `
+                    <a href="${n.action_url || n.url || '#'}"
+                       class="p-3.5 flex items-start gap-3 hover:bg-slate-50 transition group block" style="text-decoration:none">
+                        <div class="h-9 w-9 rounded-xl shrink-0 flex items-center justify-center text-xs font-bold"
+                             style="${iconBg(n.type)}">
+                            ${iconSvg(n.icon)}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-1.5">
+                                <p class="text-xs font-bold text-slate-900 truncate" style="max-width:160px">${n.title || 'Pemberitahuan'}</p>
+                                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap"
+                                      style="${levelBadgeCls(n.level)}">${n.badge || n.time || 'Info'}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${n.message || ''}</p>
+                        </div>
+                    </a>`).join('');
+
+                // Show footer
+                if (footer) footer.classList.remove('hidden');
+            }
+
+            function fetchNotifications() {
+                if (loaded) return;
+                loaded = true;
+
+                fetch('{{ route("notifications.fetch") }}', {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+                })
+                .then(r => r.json())
+                .then(data => {
+                    const count = data.count || 0;
+
+                    // Update badge
+                    if (count > 0) {
+                        badge.classList.remove('hidden');
+                        countEl.textContent = count > 9 ? '9+' : count;
+                        headerBadge.textContent = count + ' Baru';
+                        headerBadge.classList.remove('hidden');
+                    }
+
+                    renderNotifications(data.notifications || []);
+                })
+                .catch(() => {
+                    if (skeleton) skeleton.remove();
+                    body.innerHTML = '<div class="p-4 text-center text-xs text-slate-400">Gagal memuat notifikasi.</div>';
+                });
+            }
 
             if (btn && dropdown) {
                 btn.addEventListener('click', function (e) {
                     e.stopPropagation();
+                    const isOpen = !dropdown.classList.contains('hidden');
                     dropdown.classList.toggle('hidden');
+                    if (!isOpen) {
+                        fetchNotifications();
+                    }
                 });
 
                 document.addEventListener('click', function (e) {
@@ -613,6 +668,9 @@
                     }
                 });
             }
+
+            // Auto-fetch setelah 2 detik halaman load (untuk update badge tanpa klik)
+            setTimeout(fetchNotifications, 2000);
         });
     </script>
     @stack('scripts')
