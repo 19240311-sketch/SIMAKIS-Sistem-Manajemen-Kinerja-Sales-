@@ -67,9 +67,9 @@
         
         <!-- Brand / Header Sidebar -->
         <div class="flex h-20 shrink-0 items-center justify-between px-6 border-b border-white/10 bg-[#090f21]">
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-3.5 group">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white p-1.5 shadow-md shadow-blue-900/30 ring-1 ring-white/20">
-                    <img src="{{ asset('images/logo.png') }}?v={{ file_exists(public_path('images/logo.png')) ? filemtime(public_path('images/logo.png')) : time() }}" alt="Yamaha Logo" class="h-full w-full object-contain">
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 group">
+                <div class="flex h-12 w-14 shrink-0 items-center justify-center transition group-hover:scale-105">
+                    <img src="{{ asset('images/logo.png') }}?v={{ file_exists(public_path('images/logo.png')) ? filemtime(public_path('images/logo.png')) : time() }}" alt="Yamaha Logo" class="h-full w-full object-contain filter drop-shadow">
                 </div>
                 <div class="flex flex-col min-w-0">
                     <div class="flex items-center gap-1.5">
