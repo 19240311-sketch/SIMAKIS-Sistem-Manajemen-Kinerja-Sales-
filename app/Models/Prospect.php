@@ -43,6 +43,7 @@ class Prospect extends Model
         'leasing',
         'metode_pembayaran',
         'tanggal_deal',
+        'is_demo',
     ];
 
     protected $casts = [
@@ -53,6 +54,7 @@ class Prospect extends Model
         'dp' => 'integer',
         'tenor_bulan' => 'integer',
         'angsuran_per_bulan' => 'integer',
+        'is_demo' => 'boolean',
     ];
 
     // Accessor aliases for backward and bilingual compatibility
@@ -151,9 +153,54 @@ class Prospect extends Model
         return $this->hasMany(ProspectActivity::class, 'prospek_id')->orderBy('waktu_aktivitas', 'desc');
     }
 
+    public function salesTransactions(): HasMany
+    {
+        return $this->hasMany(SalesTransaction::class, 'prospek_id');
+    }
+
     public function latestActivity(): HasOne
     {
         return $this->hasOne(ProspectActivity::class, 'prospek_id')->latestOfMany('waktu_aktivitas');
+    }
+
+    /**
+     * Get clean normalized WhatsApp phone number (starts with 62)
+     */
+    public function getWaNumberAttribute(): string
+    {
+        $phone = preg_replace('/[^0-9]/', '', (string) ($this->nomor_telepon ?? $this->phone ?? ''));
+        if (str_starts_with($phone, '0')) {
+            $phone = '62' . substr($phone, 1);
+        } elseif (str_starts_with($phone, '8')) {
+            $phone = '62' . $phone;
+        }
+        return $phone;
+    }
+
+    /**
+     * Generate customized follow-up WhatsApp message text
+     */
+    public function getWaDefaultMessageAttribute(): string
+    {
+        $salesName = auth()->user()?->nama ?? auth()->user()?->name ?? 'Sales Consultant';
+        $motor = $this->motorcycle?->full_display_name ?? ($this->motorcycle?->nama_model ?? 'Sepeda Motor Yamaha');
+        $konsumen = $this->nama_konsumen ?? $this->name ?? 'Bapak/Ibu';
+
+        return "Halo Bapak/Ibu {$konsumen}, perkenalkan saya {$salesName} dari Dealer Resmi Yamaha JG Purwakarta.\n\n"
+             . "Terkait ketertarikan Bapak/Ibu pada motor Yamaha {$motor}, apakah ada informasi promo, rincian diskon, atau simulasi kredit yang ingin kami bantu jelaskan hari ini?\n\n"
+             . "Terima kasih, salam Semakin Di Depan!";
+    }
+
+    /**
+     * Generate direct WhatsApp follow-up URL
+     */
+    public function getWaLinkAttribute(): string
+    {
+        $waNum = $this->wa_number;
+        if (empty($waNum)) {
+            return '#';
+        }
+        return "https://wa.me/{$waNum}?text=" . rawurlencode($this->wa_default_message);
     }
 
     /**

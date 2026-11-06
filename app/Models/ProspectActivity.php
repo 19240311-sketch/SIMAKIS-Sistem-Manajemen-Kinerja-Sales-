@@ -19,10 +19,12 @@ class ProspectActivity extends Model
         'jenis_aktivitas',
         'waktu_aktivitas',
         'catatan',
+        'is_demo',
     ];
 
     protected $casts = [
         'waktu_aktivitas' => 'datetime',
+        'is_demo' => 'boolean',
     ];
 
     // Accessor aliases

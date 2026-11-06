@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kelola Modul: ' . $training->nama_training . ' — SIMPRO Admin')
+@section('title', 'Kelola Modul: ' . $training->nama_training . ' — SIMAKIS Admin')
 @section('page-title', 'Kelola Modul Training')
 
 @section('content')

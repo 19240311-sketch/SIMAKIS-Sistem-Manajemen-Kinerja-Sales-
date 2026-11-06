@@ -8,6 +8,7 @@ use App\Models\ProspectActivity;
 use App\Models\ProspectStatus;
 use App\Models\Source;
 use App\Models\User;
+use App\Services\ActivityLogService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -260,6 +261,14 @@ class ProspectController extends Controller
                     'catatan' => 'Prospek telah berhasil dikonversi ke tahap GO TO DEAL (Closing). Pembelian ' . $motorcycle->full_display_name . ' (' . $validated['warna_motor_diminati'] . ') via ' . $validated['skema_pembelian'] . ($validated['leasing'] ? ' (' . $validated['leasing'] . ')' : '') . '.',
                 ]);
 
+                ActivityLogService::log(
+                    activityType: 'status_change',
+                    module: 'prospek',
+                    description: "Konversi prospek {$prospect->nama_konsumen} ke tahap Go To Deal ({$motorcycle->nama_model}).",
+                    record: $prospect,
+                    afterData: ['status' => 'deal', 'nama_konsumen' => $prospect->nama_konsumen, 'motor' => $motorcycle->nama_model]
+                );
+
                 return redirect()->route('prospects.show', $prospect->id)
                     ->with('success', 'Selamat! Prospek ' . $prospect->nama_konsumen . ' berhasil dikonversi ke GO TO DEAL!');
             } else {
@@ -278,6 +287,14 @@ class ProspectController extends Controller
                     'waktu_aktivitas' => now(),
                     'catatan' => 'Pendaftaran transaksi langsung Go To Deal untuk unit ' . $motorcycle->full_display_name . ' (' . $validated['warna_motor_diminati'] . ').',
                 ]);
+
+                ActivityLogService::log(
+                    activityType: 'tambah',
+                    module: 'prospek',
+                    description: "Pendaftaran transaksi langsung Go To Deal konsumen {$prospect->nama_konsumen} ({$motorcycle->nama_model}).",
+                    record: $prospect,
+                    afterData: ['status' => 'deal', 'nama_konsumen' => $prospect->nama_konsumen, 'motor' => $motorcycle->nama_model]
+                );
 
                 return redirect()->route('prospects.show', $prospect->id)
                     ->with('success', 'Data transaksi Go To Deal berhasil disimpan!');
@@ -350,6 +367,14 @@ class ProspectController extends Controller
                 'catatan' => $validated['catatan'] ?? null,
                 'tahap_data' => 'prospek',
             ]);
+
+            ActivityLogService::log(
+                activityType: 'tambah',
+                module: 'prospek',
+                description: "Menambahkan prospek baru: {$prospect->nama_konsumen} ({$motorcycle->nama_model}) oleh {$user->nama}.",
+                record: $prospect,
+                afterData: ['nama_konsumen' => $prospect->nama_konsumen, 'motor' => $motorcycle->nama_model]
+            );
 
             return redirect()->route('prospects.show', $prospect->id)
                 ->with('success', 'Data prospek konsumen berhasil ditambahkan dan masuk ke sistem monitoring!');

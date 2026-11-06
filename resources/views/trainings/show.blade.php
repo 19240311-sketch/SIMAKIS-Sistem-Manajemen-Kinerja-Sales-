@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $training->nama_training . ' — Video Pembelajaran SIMPRO')
+@section('title', $training->nama_training . ' — Video Pembelajaran SIMAKIS')
 @section('page-title', 'Ruang Belajar Video')
 
 @section('content')
@@ -19,8 +19,9 @@
             <span class="rounded-lg px-3 py-1 text-xs font-bold border {{ $training->category_color_classes }}">
                 {{ $training->category_label }}
             </span>
-            <span class="rounded-lg px-3 py-1 text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                ⏱️ Durasi: {{ $training->durasi_video ?: $training->estimasi_waktu }}
+            <span class="rounded-lg px-3 py-1 text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 flex items-center gap-1">
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Durasi: {{ $training->durasi_video ?: $training->estimasi_waktu }}
             </span>
         </div>
     </div>
@@ -200,7 +201,10 @@
             <!-- Tips Pembelajaran -->
             <div class="rounded-2xl bg-white p-5 border-2 border-slate-200 shadow-sm text-xs text-slate-600 space-y-2">
                 <span class="font-bold text-slate-800 flex items-center gap-1.5">
-                    💡 Petunjuk Belajar Sales:
+                    <svg class="h-4 w-4 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                    </svg>
+                    <span>Petunjuk Belajar Sales:</span>
                 </span>
                 <ul class="list-disc list-inside space-y-1 text-slate-500 leading-relaxed text-[11px]">
                     <li>Perhatikan fitur-fitur pembeda produk Yamaha.</li>

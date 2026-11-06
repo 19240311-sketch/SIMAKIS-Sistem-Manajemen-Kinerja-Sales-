@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Product Knowledge & Training Sales — SIMPRO Yamaha')
+@section('title', 'Product Knowledge & Training Sales — SIMAKIS Yamaha')
 @section('page-title', 'Product Knowledge & Training Sales')
 
 @section('content')
@@ -21,7 +21,7 @@
                     </svg>
                     <span>Sistem Pembelajaran Video &amp; Kuis Interaktif</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" style="color: #ffffff !important;">
                     Product Knowledge &amp; Training Sales
                 </h2>
                 <p class="text-blue-100 text-sm max-w-2xl font-normal leading-relaxed">
@@ -108,8 +108,9 @@
                                         ▶ Video {{ $vidPct }}%
                                     </span>
                                 @else
-                                    <span class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-slate-700 text-slate-200 shadow-sm">
-                                        🔒 Belum Mulai
+                                    <span class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-slate-700 text-slate-200 shadow-sm flex items-center gap-1">
+                                        <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                                        Belum Mulai
                                     </span>
                                 @endif
                             </div>
@@ -234,19 +235,19 @@
             </a>
             <a href="{{ route('trainings.index', ['kategori' => 'product_knowledge', 'q' => $search]) }}"
                class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition border-2 {{ $tab === 'product_knowledge' ? 'bg-[#0A4DF3] text-white border-[#0A4DF3] shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50' }}">
-                <span>🏍️ Product Knowledge</span>
+                <span>Product Knowledge</span>
             </a>
             <a href="{{ route('trainings.index', ['kategori' => 'sales_skill', 'q' => $search]) }}"
                class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition border-2 {{ $tab === 'sales_skill' ? 'bg-[#0A4DF3] text-white border-[#0A4DF3] shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50' }}">
-                <span>🎯 Sales Skill</span>
+                <span>Sales Skill</span>
             </a>
             <a href="{{ route('trainings.index', ['kategori' => 'product_update', 'q' => $search]) }}"
                class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition border-2 {{ $tab === 'product_update' ? 'bg-[#0A4DF3] text-white border-[#0A4DF3] shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50' }}">
-                <span>⚡ Product Update</span>
+                <span>Product Update</span>
             </a>
             <a href="{{ route('trainings.index', ['kategori' => 'training', 'q' => $search]) }}"
                class="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition border-2 {{ $tab === 'training' ? 'bg-[#0A4DF3] text-white border-[#0A4DF3] shadow-sm' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50' }}">
-                <span>📚 Training</span>
+                <span>Training</span>
             </a>
         </div>
 
@@ -294,8 +295,9 @@
                                     ▶ Sedang Dipelajari
                                 </span>
                             @else
-                                <span class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-slate-700 text-slate-200 shadow-sm">
-                                    🔒 Belum Dimulai
+                                <span class="rounded-full px-2.5 py-0.5 text-xs font-bold bg-slate-700 text-slate-200 shadow-sm flex items-center gap-1">
+                                    <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                                    Belum Dimulai
                                 </span>
                             @endif
                         </div>
@@ -306,8 +308,9 @@
                                 <span class="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
                                 <span>YouTube Video</span>
                             </div>
-                            <span class="bg-black/60 px-2 py-0.5 rounded text-[11px] font-mono">
-                                ⏱️ {{ $training->durasi_video ?: $training->estimasi_waktu }}
+                            <span class="bg-black/60 px-2 py-0.5 rounded text-[11px] font-mono flex items-center gap-1">
+                                <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                {{ $training->durasi_video ?: $training->estimasi_waktu }}
                             </span>
                         </div>
                     </div>

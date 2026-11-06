@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             WeeklyTestSeeder::class,
         ]);
 
-        $sales1 = User::where('email', 'sales1@simpro.com')->first();
-        $sales2 = User::where('email', 'sales2@simpro.com')->first();
+        $sales1 = User::where('email', 'sales1@simakis.com')->first();
+        $sales2 = User::where('email', 'sales2@simakis.com')->first();
 
         $nmax = Motorcycle::where('nama_model', 'like', '%NMAX%')->first() ?? Motorcycle::first();
         $filano = Motorcycle::where('nama_model', 'like', '%Filano%')->first() ?? Motorcycle::first();

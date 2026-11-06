@@ -246,8 +246,11 @@
                                value="—"
                                placeholder="—"
                                class="h-11 w-full rounded-xl border-2 border-slate-200 bg-slate-100 px-3.5 text-sm font-extrabold text-[#1E3A8A] focus:outline-none cursor-not-allowed">
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500">
-                            🔒 Terkunci
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500 gap-1">
+                            <svg class="h-3.5 w-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                            </svg>
+                            <span>Terkunci</span>
                         </div>
                     </div>
                     <p class="mt-1 text-[11px] text-slate-500">Harga OTR diambil otomatis dari Master Data Motor.</p>
@@ -275,8 +278,11 @@
                                value="—"
                                placeholder="—"
                                class="h-11 w-full rounded-xl border-2 border-slate-200 bg-slate-100 px-3.5 text-sm font-extrabold text-[#1E3A8A] focus:outline-none cursor-not-allowed">
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500">
-                            🔒 Terkunci
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-xs font-bold text-slate-500 gap-1">
+                            <svg class="h-3.5 w-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                            </svg>
+                            <span>Terkunci</span>
                         </div>
                     </div>
                     <p class="mt-1 text-[11px] text-slate-500">Data harga dan angsuran diambil otomatis dari Master Data Motor.</p>

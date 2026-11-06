@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tes Online Mingguan — SIMPRO Yamaha')
+@section('title', 'Tes Online Mingguan — SIMAKIS Yamaha')
 @section('page-title', 'Tes Online Mingguan')
 
 @section('content')

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Hasil Tes: ' . $weeklyTest->nama_tes . ' — SIMPRO')
+@section('title', 'Hasil Tes: ' . $weeklyTest->nama_tes . ' — SIMAKIS')
 @section('page-title', 'Hasil & Pembahasan Tes Mingguan')
 
 @section('content')
@@ -135,7 +135,10 @@
                     @if(!empty($question->penjelasan))
                         <div class="ml-10 rounded-xl bg-blue-50/60 p-3.5 border border-blue-200 text-xs text-slate-700 space-y-1">
                             <div class="font-bold text-[#1E3A8A] flex items-center gap-1.5">
-                                <span>💡 Penjelasan Solusi:</span>
+                                <svg class="h-4 w-4 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                                </svg>
+                                <span>Penjelasan Solusi:</span>
                             </div>
                             <p class="leading-relaxed text-slate-600">{{ $question->penjelasan }}</p>
                         </div>

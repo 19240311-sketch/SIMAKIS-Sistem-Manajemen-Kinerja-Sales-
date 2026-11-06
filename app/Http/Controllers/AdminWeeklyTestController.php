@@ -7,6 +7,7 @@ use App\Models\WeeklyAnswer;
 use App\Models\WeeklyAttempt;
 use App\Models\WeeklyQuestion;
 use App\Models\WeeklyTest;
+use App\Services\ActivityLogService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -60,6 +61,14 @@ class AdminWeeklyTestController extends Controller
 
         $test = WeeklyTest::create($validated);
 
+        ActivityLogService::log(
+            'tambah',
+            'tes_mingguan',
+            "Membuat tes mingguan '{$test->nama_tes}'",
+            $test->id,
+            ['nama' => $test->nama_tes, 'kategori' => $test->kategori, 'durasi' => $test->durasi_menit]
+        );
+
         return redirect()->route('admin.weekly-tests.manage', $test->id)
             ->with('success', 'Tes Mingguan baru berhasil dibuat! Silakan tambahkan soal-soal tes.');
     }
@@ -107,6 +116,14 @@ class AdminWeeklyTestController extends Controller
 
         $weeklyTest->update($validated);
 
+        ActivityLogService::log(
+            'ubah',
+            'tes_mingguan',
+            "Memperbarui tes mingguan '{$weeklyTest->nama_tes}'",
+            $weeklyTest->id,
+            ['nama' => $weeklyTest->nama_tes, 'status' => $weeklyTest->status]
+        );
+
         return back()->with('success', 'Pengaturan Tes Mingguan berhasil diperbarui.');
     }
 
@@ -116,7 +133,16 @@ class AdminWeeklyTestController extends Controller
     public function destroy(WeeklyTest $weeklyTest): RedirectResponse
     {
         $nama = $weeklyTest->nama_tes;
+        $id = $weeklyTest->id;
         $weeklyTest->delete();
+
+        ActivityLogService::log(
+            'hapus',
+            'tes_mingguan',
+            "Menghapus tes mingguan '{$nama}'",
+            $id,
+            ['nama' => $nama]
+        );
 
         return redirect()->route('admin.weekly-tests.index')
             ->with('success', "Tes Mingguan \"{$nama}\" berhasil dihapus.");
@@ -143,6 +169,13 @@ class AdminWeeklyTestController extends Controller
 
         WeeklyQuestion::create($validated);
 
+        ActivityLogService::log(
+            'tambah',
+            'tes_mingguan',
+            "Menambahkan soal ke tes mingguan '{$weeklyTest->nama_tes}'",
+            $weeklyTest->id
+        );
+
         return back()->with('success', 'Soal Tes Mingguan berhasil ditambahkan!');
     }
 
@@ -152,6 +185,14 @@ class AdminWeeklyTestController extends Controller
     public function destroyQuestion(WeeklyTest $weeklyTest, WeeklyQuestion $question): RedirectResponse
     {
         $question->delete();
+
+        ActivityLogService::log(
+            'hapus',
+            'tes_mingguan',
+            "Menghapus soal dari tes mingguan '{$weeklyTest->nama_tes}'",
+            $weeklyTest->id
+        );
+
         return back()->with('success', 'Soal berhasil dihapus.');
     }
 }

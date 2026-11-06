@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const ROLE_SUPER_ADMIN = 'super_admin';
+    const ROLE_SUPERVISOR = 'supervisor';
+    const ROLE_SALES = 'sales';
+
     protected $table = 'users';
 
     protected $fillable = [
@@ -22,7 +26,9 @@ class User extends Authenticatable
         'cabang',
         'password',
         'peran',
+        'kode_sales',
         'status_aktif',
+        'is_demo',
     ];
 
     protected $hidden = [
@@ -32,6 +38,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'status_aktif' => 'boolean',
+        'is_demo' => 'boolean',
         'password' => 'hashed',
     ];
 
@@ -83,14 +90,69 @@ class User extends Authenticatable
         return null;
     }
 
+    public function isSuperAdmin(): bool
+    {
+        return ($this->peran ?? $this->role) === self::ROLE_SUPER_ADMIN;
+    }
+
+    public function isSupervisor(): bool
+    {
+        return in_array($this->peran ?? $this->role, [self::ROLE_SUPERVISOR, self::ROLE_SUPER_ADMIN, 'admin']);
+    }
+
+    public function isStrictSupervisor(): bool
+    {
+        return ($this->peran ?? $this->role) === self::ROLE_SUPERVISOR;
+    }
+
     public function isAdmin(): bool
     {
-        return ($this->peran ?? $this->role) === 'admin';
+        return $this->isSupervisor();
     }
 
     public function isSales(): bool
     {
-        return ($this->peran ?? $this->role) === 'sales';
+        return ($this->peran ?? $this->role) === self::ROLE_SALES;
+    }
+
+    public function getRoleLabelAttribute(): string
+    {
+        return match ($this->peran ?? $this->role) {
+            self::ROLE_SUPER_ADMIN => 'Super Admin',
+            self::ROLE_SUPERVISOR => 'Supervisor',
+            self::ROLE_SALES => 'Sales',
+            default => ucfirst($this->peran ?? 'Pengguna'),
+        };
+    }
+
+    public function getRoleBadgeClassAttribute(): string
+    {
+        return match ($this->peran ?? $this->role) {
+            self::ROLE_SUPER_ADMIN => 'bg-purple-100 text-purple-800 border-purple-200',
+            self::ROLE_SUPERVISOR => 'bg-blue-100 text-blue-800 border-blue-200',
+            self::ROLE_SALES => 'bg-emerald-100 text-emerald-800 border-emerald-200',
+            default => 'bg-gray-100 text-gray-800 border-gray-200',
+        };
+    }
+
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(ActivityLog::class, 'user_id');
+    }
+
+    public function supervisorHistories(): HasMany
+    {
+        return $this->hasMany(SupervisorHistory::class, 'user_id');
+    }
+
+    public function supervisorHandoversAsOld(): HasMany
+    {
+        return $this->hasMany(SupervisorHandover::class, 'supervisor_lama_id');
+    }
+
+    public function supervisorHandoversAsNew(): HasMany
+    {
+        return $this->hasMany(SupervisorHandover::class, 'supervisor_baru_id');
     }
 
     public function prospects(): HasMany
@@ -116,5 +178,35 @@ class User extends Authenticatable
     public function weeklyAttempts(): HasMany
     {
         return $this->hasMany(WeeklyAttempt::class, 'user_id');
+    }
+
+    public function salesTransactions(): HasMany
+    {
+        return $this->hasMany(SalesTransaction::class, 'user_id');
+    }
+
+    public function salesTargets(): HasMany
+    {
+        return $this->hasMany(SalesTarget::class, 'user_id');
+    }
+
+    public function salesRewards(): HasMany
+    {
+        return $this->hasMany(SalesReward::class, 'user_id');
+    }
+
+    public function fieldFindings(): HasMany
+    {
+        return $this->hasMany(FieldFinding::class, 'user_id');
+    }
+
+    public function performanceEvaluations(): HasMany
+    {
+        return $this->hasMany(PerformanceEvaluation::class, 'user_id');
+    }
+
+    public function meetingAttendances(): HasMany
+    {
+        return $this->hasMany(MeetingAttendance::class, 'user_id');
     }
 }

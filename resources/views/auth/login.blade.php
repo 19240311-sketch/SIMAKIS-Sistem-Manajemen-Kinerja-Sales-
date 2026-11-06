@@ -189,7 +189,7 @@
                     {{-- Soft logo halo for crisp separation --}}
                     <div class="absolute -inset-2 rounded-2xl bg-white/10 filter blur-md pointer-events-none"></div>
                     <img src="{{ asset('images/logo.png') }}?v={{ file_exists(public_path('images/logo.png')) ? filemtime(public_path('images/logo.png')) : time() }}"
-                         alt="JG Motor Purwakarta - SIMPRO"
+                         alt="JG Motor Purwakarta - SIMAKIS"
                          class="relative h-14 sm:h-16 lg:h-20 w-auto object-contain"
                          style="filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35));">
                 </div>
@@ -206,19 +206,19 @@
                 <div class="flex items-center gap-3">
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-none"
                         style="font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; text-shadow: 0 2px 12px rgba(0,0,0,0.25);">
-                        SIMPRO
+                        SIMAKIS
                     </h1>
                     <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-blue-500/25 border border-blue-400/30 text-blue-200 uppercase tracking-widest">
-                        Enterprise v1.0
+                        Enterprise v2.0
                     </span>
                 </div>
 
                 <h2 class="text-lg sm:text-xl font-bold leading-snug" style="color: #e0edff;">
-                    Sistem Informasi Monitoring Prospek &amp; Aktivitas Sales
+                    Sistem Manajemen Kinerja Sales
                 </h2>
 
                 <p class="text-sm sm:text-base leading-relaxed max-w-xl font-normal" style="color: rgba(205,225,250,0.88);">
-                    Kelola prospek konsumen dan aktivitas sales secara lebih mudah, cepat, dan terintegrasi dalam satu platform cerdas.
+                    Kelola kinerja penjualan sales, target, reward, rapat mingguan, dan laporan operasional secara terintegrasi dalam satu sistem terpusat.
                 </p>
             </div>
 
@@ -314,7 +314,7 @@
                         Masuk ke Sistem
                     </h2>
                     <p class="mt-1 text-xs sm:text-[13px] text-slate-500">
-                        Masukkan email dan kata sandi Anda untuk mengakses portal SIMPRO.
+                        Masukkan email dan kata sandi Anda untuk mengakses portal SIMAKIS.
                     </p>
                 </div>
 
@@ -325,6 +325,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                         </svg>
                         <span>{{ session('info') }}</span>
+                    </div>
+                @endif
+
+                @if(session('warning'))
+                    <div class="mb-5 rounded-xl bg-amber-50 p-3.5 text-xs text-amber-800 border border-amber-200 flex items-center gap-2.5">
+                        <svg class="h-4 w-4 shrink-0 text-amber-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                        </svg>
+                        <span>{{ session('warning') }}</span>
                     </div>
                 @endif
 
@@ -345,7 +354,7 @@
                             </div>
                             <input id="email" name="email" type="email" autocomplete="email" required
                                    value="{{ old('email') }}"
-                                   placeholder="nama@dealer.com"
+                                   placeholder="nama@simakis.com"
                                    style="border-color: #e2e8f0; background: #f8fafc;"
                                    class="h-11 w-full rounded-xl border pl-11 pr-4 text-sm font-medium text-slate-800 placeholder:text-slate-400 hover:border-slate-300 focus:bg-white focus:border-[#0A4DF3] focus:ring-2 focus:ring-blue-100 focus:outline-none transition @error('email') !border-red-400 !bg-red-50 @enderror">
                         </div>
@@ -415,7 +424,7 @@
                 {{-- Card Footer Note --}}
                 <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-1.5">
                     <span class="font-medium text-slate-500">JG Motor Purwakarta</span>
-                    <span>SIMPRO &copy; {{ date('Y') }}</span>
+                    <span>SIMAKIS &copy; {{ date('Y') }}</span>
                 </div>
             </div>
 

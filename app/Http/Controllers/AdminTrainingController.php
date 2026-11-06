@@ -8,6 +8,7 @@ use App\Models\TrainingQuiz;
 use App\Models\User;
 use App\Models\UserQuizResult;
 use App\Models\UserTrainingProgress;
+use App\Services\ActivityLogService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -177,6 +178,14 @@ class AdminTrainingController extends Controller
             $training->update(['jumlah_soal' => count($validated['quizzes'])]);
         }
 
+        ActivityLogService::log(
+            'tambah',
+            'pelatihan',
+            "Menambahkan materi pelatihan '{$training->nama_training}'",
+            $training->id,
+            ['nama' => $training->nama_training, 'kategori' => $training->kategori, 'status' => $training->status]
+        );
+
         return redirect()->route('admin.trainings.index')
             ->with('success', 'Materi pembelajaran "' . $training->nama_training . '" berhasil disimpan!');
     }
@@ -273,6 +282,14 @@ class AdminTrainingController extends Controller
             $training->update(['jumlah_soal' => count($validated['quizzes'])]);
         }
 
+        ActivityLogService::log(
+            'ubah',
+            'pelatihan',
+            "Memperbarui materi pelatihan '{$training->nama_training}'",
+            $training->id,
+            ['nama' => $training->nama_training, 'kategori' => $training->kategori, 'status' => $training->status]
+        );
+
         return redirect()->route('admin.trainings.index')
             ->with('success', 'Materi pembelajaran "' . $training->nama_training . '" berhasil diperbarui!');
     }
@@ -294,6 +311,14 @@ class AdminTrainingController extends Controller
         $training->is_active = !$training->is_active;
         $training->save();
 
+        ActivityLogService::log(
+            'ubah',
+            'pelatihan',
+            "Mengubah status aktif materi pelatihan '{$training->nama_training}' menjadi " . ($training->is_active ? 'Aktif' : 'Nonaktif'),
+            $training->id,
+            ['is_active' => $training->is_active]
+        );
+
         $statusText = $training->is_active ? 'diaktifkan' : 'dinonaktifkan';
         return back()->with('success', "Materi \"{$training->nama_training}\" berhasil {$statusText}.");
     }
@@ -304,7 +329,16 @@ class AdminTrainingController extends Controller
     public function destroy(Training $training): RedirectResponse
     {
         $nama = $training->nama_training;
+        $id = $training->id;
         $training->delete();
+
+        ActivityLogService::log(
+            'hapus',
+            'pelatihan',
+            "Menghapus materi pelatihan '{$nama}'",
+            $id,
+            ['nama' => $nama]
+        );
 
         return redirect()->route('admin.trainings.index')
             ->with('success', "Materi pembelajaran \"{$nama}\" berhasil dihapus.");

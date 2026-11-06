@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kelola Soal & Hasil: ' . $weeklyTest->nama_tes . ' — SIMPRO Admin')
+@section('title', 'Kelola Soal & Hasil: ' . $weeklyTest->nama_tes . ' — SIMAKIS Admin')
 @section('page-title', 'Kelola Tes Mingguan')
 
 @section('content')

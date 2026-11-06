@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Saya — SIMPRO Yamaha')
+@section('title', 'Profil Saya — SIMAKIS Yamaha JG Purwakarta')
 @section('page-title', 'Profil Saya')
 
 @section('content')
@@ -277,7 +277,7 @@
                             </svg>
                             <span>Edit Profil Pengguna</span>
                         </h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Perbarui nama, nomor telepon, dan foto profil akun SIMPRO Anda.</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Perbarui nama, nomor telepon, dan foto profil akun SIMAKIS Anda.</p>
                     </div>
                 </div>
 

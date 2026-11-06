@@ -51,6 +51,7 @@ module.exports = {
         none: '0', sm: '4px', md: '8px', lg: '12px', pill: '9999px', full: '50%',
       },
       boxShadow: {
+        'xs': '0 1px 2px 0 rgba(15, 23, 42, 0.04)',
         'elev-0': 'none',
         'elev-1': '0 0 0 1px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)',
         'elev-2': '0 0 0 1px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04), 0 4px 8px -2px rgba(15,23,42,0.06)',

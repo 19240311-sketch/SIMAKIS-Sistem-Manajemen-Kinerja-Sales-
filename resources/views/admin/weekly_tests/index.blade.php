@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Manajemen Tes Online Mingguan — SIMPRO Admin')
+@section('title', 'Manajemen Tes Online Mingguan — SIMAKIS Admin')
 @section('page-title', 'Kelola Tes Online Mingguan')
 
 @section('content')

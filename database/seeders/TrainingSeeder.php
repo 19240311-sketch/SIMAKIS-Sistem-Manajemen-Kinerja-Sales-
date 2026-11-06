@@ -363,8 +363,8 @@ class TrainingSeeder extends Seeder
         }
 
         // Seed Sample Progress for Sales 1 (Budi) and Sales 2 (Siti)
-        $sales1 = User::where('email', 'sales1@simpro.com')->first();
-        $sales2 = User::where('email', 'sales2@simpro.com')->first();
+        $sales1 = User::where('email', 'sales1@simakis.com')->first();
+        $sales2 = User::where('email', 'sales2@simakis.com')->first();
 
         $allTrainings = Training::with(['materials', 'quizzes'])->get();
 

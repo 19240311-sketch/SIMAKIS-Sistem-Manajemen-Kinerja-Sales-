@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prospect;
 use App\Models\ProspectActivity;
 use App\Models\ProspectStatus;
+use App\Services\ActivityLogService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,14 @@ class ProspectActivityController extends Controller
                 $prospect->status_prospek_id = $newStatusId;
                 $prospect->save();
             }
+
+            ActivityLogService::log(
+                activityType: 'tambah',
+                module: 'prospek',
+                description: "Mencatat aktivitas follow-up " . ucfirst($validated['type']) . " pada prospek {$prospect->nama_konsumen}.",
+                record: $prospect,
+                afterData: ['jenis_aktivitas' => $validated['type'], 'catatan' => $validated['notes']]
+            );
         });
 
         $activityLabel = ucfirst($validated['type']);

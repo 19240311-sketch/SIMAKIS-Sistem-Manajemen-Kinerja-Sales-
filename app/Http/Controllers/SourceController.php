@@ -45,4 +45,21 @@ class SourceController extends Controller
         return redirect()->route('master.sources.index')
             ->with('success', 'Data sumber prospek berhasil diperbarui!');
     }
+
+    public function destroy(Source $source): RedirectResponse
+    {
+        if ($source->prospects()->exists()) {
+            return redirect()->route('master.sources.index')
+                ->with('error', 'Sumber prospek tidak dapat dihapus karena masih terhubung dengan data prospek.');
+        }
+
+        try {
+            $source->delete();
+            return redirect()->route('master.sources.index')
+                ->with('success', 'Sumber prospek berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('master.sources.index')
+                ->with('error', 'Gagal menghapus sumber prospek: ' . $e->getMessage());
+        }
+    }
 }

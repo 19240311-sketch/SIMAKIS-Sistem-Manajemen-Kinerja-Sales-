@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Materi Pembelajaran: ' . $training->nama_training . ' — SIMPRO Admin')
+@section('title', 'Edit Materi Pembelajaran: ' . $training->nama_training . ' — SIMAKIS Admin')
 @section('page-title', 'Edit Materi Pembelajaran')
 
 @section('content')

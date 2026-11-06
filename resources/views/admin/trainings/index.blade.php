@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kelola Materi Pembelajaran — SIMPRO Admin')
+@section('title', 'Kelola Materi Pembelajaran — SIMAKIS Admin')
 @section('page-title', 'Kelola Materi Pembelajaran')
 
 @section('content')

@@ -13,6 +13,17 @@
         </a>
 
         <div class="flex items-center gap-2 flex-wrap">
+            @if($prospect->wa_number)
+                <a href="{{ $prospect->wa_link }}" target="_blank"
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition active:scale-95"
+                   style="background-color: #059669 !important; color: #ffffff !important;">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.115.548 4.102 1.509 5.831l-1.602 5.855 6.001-1.574c1.668.908 3.57 1.428 5.592 1.428 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12zm0 21.6c-1.802 0-3.488-.501-4.93-1.37l-.353-.213-3.669.962.979-3.577-.234-.372c-.958-1.523-1.493-3.313-1.493-5.23 0-5.293 4.307-9.6 9.6-9.6 5.293 0 9.6 4.307 9.6 9.6 0 5.293-4.307 9.6-9.6 9.6z"/>
+                    </svg>
+                    <span>Chat WhatsApp Konsumen</span>
+                </a>
+            @endif
+
             @if(($prospect->tahap_data ?? 'prospek') !== 'deal' && !($prospect->status->status_akhir ?? false))
                 <a href="{{ route('prospects.create', ['mode' => 'deal', 'prospect_id' => $prospect->id]) }}" class="btn-success">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,9 +113,15 @@
                             </svg>
                             Telepon / WA
                         </span>
-                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $prospect->phone) }}" target="_blank" class="font-semibold text-primary hover:underline">
-                            {{ $prospect->phone }}
-                        </a>
+                        <div class="flex items-center gap-2">
+                            <span class="font-semibold text-primary">{{ $prospect->phone }}</span>
+                            @if($prospect->wa_number)
+                                <a href="{{ $prospect->wa_link }}" target="_blank"
+                                   class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white border border-emerald-300 text-2xs font-bold transition">
+                                    <span>Buka WA &rarr;</span>
+                                </a>
+                            @endif
+                        </div>
                     </div>
 
                     <!-- Email -->

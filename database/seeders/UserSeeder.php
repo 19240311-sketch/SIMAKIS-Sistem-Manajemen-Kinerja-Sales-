@@ -10,22 +10,22 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin
+        // Supervisor (Sebelumnya Admin)
         User::updateOrCreate(
-            ['email' => 'admin@simpro.com'],
+            ['email' => 'supervisor@simakis.com'],
             [
-                'nama' => 'Admin Dealer Utama',
+                'nama' => 'Supervisor Dealer Utama',
                 'no_hp' => '081298765432',
                 'cabang' => 'Yamaha JG Purwakarta',
                 'password' => Hash::make('password'),
-                'peran' => 'admin',
+                'peran' => 'supervisor',
                 'status_aktif' => true,
             ]
         );
 
         // Sales 1
         User::updateOrCreate(
-            ['email' => 'sales1@simpro.com'],
+            ['email' => 'sales1@simakis.com'],
             [
                 'nama' => 'Budi Santoso',
                 'no_hp' => '081388776655',
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
 
         // Sales 2
         User::updateOrCreate(
-            ['email' => 'sales2@simpro.com'],
+            ['email' => 'sales2@simakis.com'],
             [
                 'nama' => 'Siti Rahmawati',
                 'no_hp' => '085712345678',

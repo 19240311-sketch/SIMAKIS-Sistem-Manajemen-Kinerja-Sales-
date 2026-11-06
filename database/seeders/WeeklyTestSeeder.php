@@ -218,8 +218,8 @@ class WeeklyTestSeeder extends Seeder
         }
 
         // Seed Sample Completed Attempt for Sales 1 (Budi) on Test 2
-        $sales1 = User::where('email', 'sales1@simpro.com')->first();
-        $sales2 = User::where('email', 'sales2@simpro.com')->first();
+        $sales1 = User::where('email', 'sales1@simakis.com')->first();
+        $sales2 = User::where('email', 'sales2@simakis.com')->first();
 
         $test2 = WeeklyTest::where('nama_tes', 'like', '%Tes Mingguan 02%')->with('questions')->first();
 
