@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\ActivityLogService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,26 +13,102 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(): View
+    /**
+     * Display a listing of user accounts with live search, filters, and pagination.
+     */
+    public function index(Request $request): View|JsonResponse
     {
         $currentUser = Auth::user();
 
-        $users = User::withCount(['prospects', 'salesTransactions'])
-            ->orderByRaw("FIELD(peran, 'super_admin', 'supervisor', 'sales')")
+        $query = User::withCount(['prospects', 'salesTransactions']);
+
+        // 1. Search Query (Nama, Email, Peran / Role, Cabang)
+        if ($request->filled('search')) {
+            $search = trim($request->search);
+            $roleKeywords = [
+                'super admin' => User::ROLE_SUPER_ADMIN,
+                'superadmin'  => User::ROLE_SUPER_ADMIN,
+                'super_admin' => User::ROLE_SUPER_ADMIN,
+                'supervisor'  => User::ROLE_SUPERVISOR,
+                'spv'         => User::ROLE_SUPERVISOR,
+                'sales'       => User::ROLE_SALES,
+            ];
+            $mappedRole = $roleKeywords[strtolower($search)] ?? null;
+
+            $query->where(function ($q) use ($search, $mappedRole) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('cabang', 'like', "%{$search}%");
+
+                if ($mappedRole) {
+                    $q->orWhere('peran', $mappedRole);
+                } else {
+                    $q->orWhere('peran', 'like', "%{$search}%");
+                }
+            });
+        }
+
+        // 2. Filter Role
+        if ($request->filled('role')) {
+            $role = trim($request->role);
+            if (in_array($role, [User::ROLE_SUPER_ADMIN, User::ROLE_SUPERVISOR, User::ROLE_SALES])) {
+                $query->where('peran', $role);
+            }
+        }
+
+        // 3. Filter Status Akun
+        if ($request->filled('status')) {
+            $status = trim($request->status);
+            if ($status === 'aktif' || $status === '1') {
+                $query->where('status_aktif', true);
+            } elseif ($status === 'nonaktif' || $status === '0') {
+                $query->where('status_aktif', false);
+            }
+        }
+
+        // 4. Pagination (10, 25, 50 akun per halaman)
+        $allowedPerPage = [10, 25, 50];
+        $perPage = (int) $request->input('per_page', 10);
+        if (!in_array($perPage, $allowedPerPage)) {
+            $perPage = 10;
+        }
+
+        $users = $query->orderByRaw("FIELD(peran, 'super_admin', 'supervisor', 'sales')")
             ->orderBy('nama')
-            ->get();
+            ->paginate($perPage)
+            ->withQueryString();
 
-        // Candidates for supervisor replacement modal
-        $salesCandidates = User::where('peran', User::ROLE_SALES)
-            ->where('status_aktif', true)
-            ->orderBy('nama')
-            ->get();
+        $totalAllUsers = User::count();
+        $totalFiltered = $users->total();
 
-        $currentSupervisor = User::where('peran', User::ROLE_SUPERVISOR)
-            ->where('status_aktif', true)
-            ->first();
+        // 5. AJAX Response (Tanpa Reload Halaman)
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('users.partials.table_rows', compact('users', 'currentUser'))->render();
+            $paginationHtml = view('users.partials.pagination', compact('users', 'perPage'))->render();
 
-        return view('users.index', compact('users', 'salesCandidates', 'currentSupervisor', 'currentUser'));
+            $from = $users->firstItem() ?? 0;
+            $to = $users->lastItem() ?? 0;
+            $total = $users->total();
+            $summaryText = $total > 0
+                ? "Menampilkan {$from}–{$to} dari {$total} akun"
+                : "Tidak ada akun ditemukan";
+
+            return response()->json([
+                'success' => true,
+                'html' => $html,
+                'pagination_html' => $paginationHtml,
+                'total_all' => $totalAllUsers,
+                'total_filtered' => $totalFiltered,
+                'from' => $from,
+                'to' => $to,
+                'total' => $total,
+                'summary_text' => $summaryText,
+                'current_page' => $users->currentPage(),
+                'last_page' => $users->lastPage(),
+            ]);
+        }
+
+        return view('users.index', compact('users', 'currentUser', 'totalAllUsers', 'perPage'));
     }
 
     public function store(Request $request): RedirectResponse
