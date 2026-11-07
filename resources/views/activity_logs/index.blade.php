@@ -6,34 +6,35 @@
 <div class="space-y-6 max-w-7xl mx-auto">
 
     {{-- ============================================================
-         1. TOP HEADER & DESKRIPSI
+         1. TOP HEADER & DESKRIPSI (Ringkas & Proporsional)
          ============================================================ --}}
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 sm:p-6">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div>
-                <div class="flex items-center gap-2 mb-1.5">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                        <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                        <span class="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse"></span>
                         Audit &amp; Security Trail
                     </span>
                     <span class="text-xs text-slate-400 font-medium">SIMAKIS &bull; Yamaha JG Purwakarta</span>
                 </div>
-                <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                     Log Aktivitas Sistem
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                <p class="text-xs text-slate-500 mt-0.5 max-w-3xl">
                     @if(Auth::user()->isSupervisor() || Auth::user()->isSuperAdmin())
-                        Seluruh rekaman jejak audit sistem: login/logout, manipulasi data transaksi, prospek, pengguna, serta perubahan akun dan hak akses.
+                        Rekaman jejak audit sistem: autentikasi login, transaksi, prospek, pengguna, serta riwayat perubahan data.
                     @else
                         Riwayat aktivitas kerja pribadi Anda yang tercatat secara aman dalam sistem.
                     @endif
                 </p>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 shrink-0">
                 <a href="{{ route('activity-logs.index') }}"
-                   class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                   title="Reset seluruh filter pencarian"
+                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors border border-slate-200">
+                    <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
                     <span>Reset Filter</span>
@@ -43,52 +44,60 @@
     </div>
 
     {{-- ============================================================
-         2. STATISTIK RINGKAS
+         2. STATISTIK RINGKAS (Kompak, Proporsional & Enak Dilihat)
          ============================================================ --}}
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between">
-            <div>
-                <span class="text-2xs font-bold text-slate-400 uppercase tracking-wider">Total Catatan Log</span>
-                <div class="text-2xl font-black text-slate-900 mt-1">{{ number_format($stats['total'] ?? 0) }}</div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {{-- Card 1: Total Catatan Log --}}
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs p-3.5 sm:p-4 flex items-center justify-between hover:border-slate-300 transition-colors">
+            <div class="min-w-0 flex-1 pr-2">
+                <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">Total Catatan Log</span>
+                <div class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5 leading-tight">{{ number_format($stats['total'] ?? 0) }}</div>
+                <span class="text-[10px] text-slate-400 font-medium">Seluruh rekaman audit</span>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <div class="h-9 w-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0 ring-1 ring-blue-100">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between">
-            <div>
-                <span class="text-2xs font-bold text-slate-400 uppercase tracking-wider">Aktivitas Hari Ini</span>
-                <div class="text-2xl font-black text-emerald-600 mt-1">{{ number_format($stats['hari_ini'] ?? 0) }}</div>
+        {{-- Card 2: Aktivitas Hari Ini --}}
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs p-3.5 sm:p-4 flex items-center justify-between hover:border-slate-300 transition-colors">
+            <div class="min-w-0 flex-1 pr-2">
+                <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">Aktivitas Hari Ini</span>
+                <div class="text-xl sm:text-2xl font-black text-emerald-600 mt-0.5 leading-tight">{{ number_format($stats['hari_ini'] ?? 0) }}</div>
+                <span class="text-[10px] text-emerald-600 font-medium">Aktivitas 24 jam terakhir</span>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <div class="h-9 w-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0 ring-1 ring-emerald-100">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between">
-            <div>
-                <span class="text-2xs font-bold text-slate-400 uppercase tracking-wider">Operasional Sales</span>
-                <div class="text-2xl font-black text-indigo-600 mt-1">{{ number_format($stats['operasional'] ?? 0) }}</div>
+        {{-- Card 3: Operasional Sales --}}
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs p-3.5 sm:p-4 flex items-center justify-between hover:border-slate-300 transition-colors">
+            <div class="min-w-0 flex-1 pr-2">
+                <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">Operasional Sales</span>
+                <div class="text-xl sm:text-2xl font-black text-indigo-600 mt-0.5 leading-tight">{{ number_format($stats['operasional'] ?? 0) }}</div>
+                <span class="text-[10px] text-slate-400 font-medium">Prospek &amp; transaksi</span>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <div class="h-9 w-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold shrink-0 ring-1 ring-indigo-100">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6H2.25m0 0H3m0 0h1.5a.75.75 0 01.75.75V9m-3-3v3m0 0h1.5a.75.75 0 01.75.75v3m-3-3v3m0 0h1.5a.75.75 0 01.75.75v3m-3-3v3m0 0h1.5a.75.75 0 01.75.75v3" />
                 </svg>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-4 flex items-center justify-between">
-            <div>
-                <span class="text-2xs font-bold text-slate-400 uppercase tracking-wider">Aktivitas Autentikasi</span>
-                <div class="text-2xl font-black text-purple-600 mt-1">{{ number_format($stats['auth'] ?? 0) }}</div>
+        {{-- Card 4: Aktivitas Autentikasi --}}
+        <div class="bg-white rounded-xl border border-slate-200/80 shadow-xs p-3.5 sm:p-4 flex items-center justify-between hover:border-slate-300 transition-colors">
+            <div class="min-w-0 flex-1 pr-2">
+                <span class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider truncate">Aktivitas Autentikasi</span>
+                <div class="text-xl sm:text-2xl font-black text-purple-600 mt-0.5 leading-tight">{{ number_format($stats['auth'] ?? 0) }}</div>
+                <span class="text-[10px] text-slate-400 font-medium">Login &amp; akses akun</span>
             </div>
-            <div class="h-10 w-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <div class="h-9 w-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold shrink-0 ring-1 ring-purple-100">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
             </div>
@@ -96,25 +105,33 @@
     </div>
 
     {{-- ============================================================
-         3. FORM FILTER & PENCARIAN
+         3. FORM FILTER & PENCARIAN (Kompak, Rapi & Tidak Memakan Tempat)
          ============================================================ --}}
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5">
-        <form method="GET" action="{{ route('activity-logs.index') }}" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sm:p-5">
+        <form method="GET" action="{{ route('activity-logs.index') }}" class="space-y-3">
+            {{-- Baris 1: Filter Utama --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5">
 
                 {{-- Keyword Search --}}
-                <div class="lg:col-span-1">
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Pencarian</label>
-                    <input type="text" name="search" value="{{ request('search') }}"
-                           placeholder="Cari deskripsi, nama..."
-                           class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="lg:col-span-2">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pencarian</label>
+                    <div class="relative">
+                        <div class="pointer-events-none absolute inset-y-0 left-2.5 flex items-center">
+                            <svg class="h-3.5 w-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </div>
+                        <input type="text" name="search" value="{{ request('search') }}"
+                               placeholder="Cari deskripsi, nama..."
+                               class="w-full text-xs rounded-xl border border-slate-200 pl-8 pr-3 py-1.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                    </div>
                 </div>
 
                 {{-- Filter Pengguna (Super Admin & Supervisor) --}}
                 @if(Auth::user()->isSupervisor() || Auth::user()->isSuperAdmin())
-                <div>
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Pengguna</label>
-                    <select name="user_id" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="lg:col-span-1">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Pengguna</label>
+                    <select name="user_id" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-1.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         <option value="">Semua Pengguna</option>
                         @foreach($usersList as $u)
                             <option value="{{ $u->id }}" {{ request('user_id') == $u->id ? 'selected' : '' }}>
@@ -127,9 +144,9 @@
 
                 {{-- Filter Role (Super Admin & Supervisor) --}}
                 @if(Auth::user()->isSupervisor() || Auth::user()->isSuperAdmin())
-                <div>
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Role Pengguna</label>
-                    <select name="role" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="lg:col-span-1">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Role Pengguna</label>
+                    <select name="role" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-1.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         <option value="">Semua Role</option>
                         <option value="super_admin" {{ request('role') === 'super_admin' ? 'selected' : '' }}>Super Admin</option>
                         <option value="supervisor" {{ request('role') === 'supervisor' ? 'selected' : '' }}>Supervisor</option>
@@ -139,9 +156,9 @@
                 @endif
 
                 {{-- Filter Modul --}}
-                <div>
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Modul Sistem</label>
-                    <select name="modul" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="lg:col-span-1">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Modul Sistem</label>
+                    <select name="modul" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-1.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         <option value="">Semua Modul</option>
                         @foreach($modulesList as $key => $label)
                             <option value="{{ $key }}" {{ request('modul') === $key ? 'selected' : '' }}>{{ $label }}</option>
@@ -150,40 +167,53 @@
                 </div>
 
                 {{-- Filter Jenis Aktivitas --}}
-                <div>
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Jenis Aktivitas</label>
-                    <select name="jenis_aktivitas" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <div class="lg:col-span-1">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Jenis Aktivitas</label>
+                    <select name="jenis_aktivitas" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-1.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         <option value="">Semua Jenis</option>
                         @foreach($activityTypes as $typeKey => $typeLabel)
                             <option value="{{ $typeKey }}" {{ request('jenis_aktivitas') === $typeKey ? 'selected' : '' }}>{{ $typeLabel }}</option>
                         @endforeach
                     </select>
                 </div>
-
-                {{-- Rentang Tanggal Mulai --}}
-                <div>
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Dari Tanggal</label>
-                    <input type="date" name="start_date" value="{{ request('start_date') }}"
-                           class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                {{-- Rentang Tanggal Selesai --}}
-                <div>
-                    <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Sampai Tanggal</label>
-                    <input type="date" name="end_date" value="{{ request('end_date') }}"
-                           class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
             </div>
 
-            <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
-                <button type="submit"
-                        class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5">
-                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                    </svg>
-                    <span>Terapkan Filter</span>
-                </button>
+            {{-- Baris 2: Rentang Tanggal & Tombol Terapkan (Menyatu Rapi Tanpa Ruang Kosong) --}}
+            <div class="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div class="flex items-center gap-2 flex-wrap">
+                    <div class="flex items-center gap-1.5 text-xs text-slate-500">
+                        <svg class="h-3.5 w-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                        </svg>
+                        <span class="text-[11px] font-semibold text-slate-500">Rentang:</span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5">
+                        <input type="date" name="start_date" value="{{ request('start_date') }}"
+                               title="Dari Tanggal"
+                               class="text-xs rounded-xl border border-slate-200 px-2.5 py-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                        <span class="text-xs text-slate-400">&ndash;</span>
+                        <input type="date" name="end_date" value="{{ request('end_date') }}"
+                               title="Sampai Tanggal"
+                               class="text-xs rounded-xl border border-slate-200 px-2.5 py-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                    @if(request()->anyFilled(['search', 'user_id', 'role', 'modul', 'jenis_aktivitas', 'start_date', 'end_date']))
+                        <a href="{{ route('activity-logs.index') }}"
+                           class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 text-xs font-semibold transition-colors">
+                            Reset
+                        </a>
+                    @endif
+                    <button type="submit"
+                            class="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5">
+                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                        <span>Terapkan Filter</span>
+                    </button>
+                </div>
             </div>
         </form>
     </div>
