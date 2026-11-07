@@ -20,10 +20,10 @@
                     <span class="text-xs text-slate-400 font-medium">SIMAKIS &bull; Yamaha JG Purwakarta</span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                    Pusat Kontrol Sistem &amp; Manajemen Pimpinan
+                    Pusat Kontrol Sistem &amp; Manajemen Pengguna
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                    Pengawasan otoritas tertinggi sistem: manajemen pengguna lintas peran, pergantian &amp; serah terima jabatan Supervisor, serta audit log aktivitas operasional dealer.
+                    Pengawasan otoritas tertinggi sistem: pengelolaan akun pengguna lintas peran, hak akses, status akun, serta audit jejak log aktivitas sistem dealer.
                 </p>
             </div>
 
@@ -31,23 +31,16 @@
                 <a href="{{ route('users.index') }}"
                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md transition-all active:scale-95">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.765z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.765l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                     </svg>
-                    <span>Kelola Pengguna</span>
-                </a>
-                <a href="{{ route('supervisor.handovers.create') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md transition-all active:scale-95">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                    <span>+ Serah Terima Jabatan</span>
+                    <span>Kelola Pengguna &amp; Role</span>
                 </a>
                 <a href="{{ route('activity-logs.index') }}"
                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 shadow-xs transition-all active:scale-95">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>Log Aktivitas</span>
+                    <span>Log Aktivitas Sistem</span>
                 </a>
             </div>
         </div>
@@ -68,7 +61,7 @@
                 </span>
             </div>
             <div class="mt-4">
-                <div class="text-2xl sm:text-3xl font-black text-slate-900">{{ $totalUsers ?? 0 }}</div>
+                <div class="text-2xl sm:text-3xl font-black text-slate-900">{{ $totalUsers ?? 0 }} <span class="text-sm font-bold text-slate-500">Akun</span></div>
                 <div class="flex items-center gap-2 mt-1.5 text-xs text-slate-500">
                     <span class="font-bold text-emerald-600">{{ $activeUsers ?? 0 }} Aktif</span>
                     <span>&bull;</span>
@@ -77,7 +70,7 @@
             </div>
         </div>
 
-        <!-- Card 2: Supervisor & Sales -->
+        <!-- Card 2: Komposisi Tim -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Komposisi Tim</span>
@@ -97,22 +90,23 @@
             </div>
         </div>
 
-        <!-- Card 3: Serah Terima Jabatan -->
+        <!-- Card 3: Status Akun Sistem -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Serah Terima Jabatan</span>
-                <span class="h-9 w-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Status Akses Akun</span>
+                <span class="h-9 w-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                     </svg>
                 </span>
             </div>
             <div class="mt-4">
-                <div class="text-2xl sm:text-3xl font-black text-slate-900">{{ $totalHandovers ?? 0 }} <span class="text-sm font-bold text-slate-500">Dokumen</span></div>
-                <div class="flex items-center gap-2 mt-1.5 text-xs">
-                    <span class="font-bold text-amber-600">{{ $pendingHandovers ?? 0 }} Proses</span>
-                    <span>&bull;</span>
-                    <span class="font-bold text-emerald-600">{{ $completedHandovers ?? 0 }} Selesai</span>
+                @php
+                    $activeRate = ($totalUsers ?? 0) > 0 ? round((($activeUsers ?? 0) / $totalUsers) * 100) : 100;
+                @endphp
+                <div class="text-2xl sm:text-3xl font-black text-slate-900">{{ $activeRate }}% <span class="text-sm font-bold text-slate-500">Aktif</span></div>
+                <div class="flex items-center gap-2 mt-1.5 text-xs text-slate-500">
+                    <span class="font-bold text-emerald-600">{{ $activeUsers ?? 0 }} Siap Operasional</span>
                 </div>
             </div>
         </div>
@@ -121,7 +115,7 @@
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 flex flex-col justify-between">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Aktivitas Sistem</span>
-                <span class="h-9 w-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                <span class="h-9 w-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                     </svg>
@@ -137,7 +131,7 @@
     </div>
 
     {{-- ============================================================
-         3. STATUS SUPERVISOR AKTIF SAAT INI & PROSES JABATAN
+         3. STATUS SUPERVISOR & PEMBAGIAN ROLE SIMAKIS
          ============================================================ --}}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Supervisor Aktif Panel -->
@@ -148,8 +142,8 @@
                         <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
                         Supervisor Aktif Saat Ini
                     </h2>
-                    <a href="{{ route('supervisor.history') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
-                        Riwayat &rarr;
+                    <a href="{{ route('users.index') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
+                        Kelola Akun &rarr;
                     </a>
                 </div>
 
@@ -173,16 +167,16 @@
 
                     <div class="mt-5 pt-4 border-t border-slate-100 space-y-2.5 text-xs">
                         <div class="flex items-center justify-between text-slate-600">
-                            <span>Mulai Menjabat:</span>
-                            <span class="font-bold text-slate-900">{{ $activeSupervisorHistory?->tanggal_mulai?->format('d M Y') ?? 'Sejak Awal' }}</span>
-                        </div>
-                        <div class="flex items-center justify-between text-slate-600">
                             <span>Status Otoritas:</span>
                             <span class="font-bold text-emerald-600">Aktif Memimpin Operasional</span>
                         </div>
                         <div class="flex items-center justify-between text-slate-600">
                             <span>Jumlah Sales Terbina:</span>
                             <span class="font-bold text-slate-900">{{ $totalSales ?? 0 }} Tenaga Penjual</span>
+                        </div>
+                        <div class="flex items-center justify-between text-slate-600">
+                            <span>Akses Modul:</span>
+                            <span class="font-bold text-blue-600">Target, Prospek, Ranking, Evaluasi &amp; Rapat</span>
                         </div>
                     </div>
                 @else
@@ -193,71 +187,89 @@
             </div>
 
             <div class="mt-6 pt-4 border-t border-slate-100 flex gap-2">
-                <a href="{{ route('supervisor.history') }}"
+                <a href="{{ route('users.index') }}"
                    class="flex-1 text-center py-2.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs transition-colors">
-                    Pergantian Supervisor &rarr;
+                    Kelola Seluruh Akun Pengguna &rarr;
                 </a>
             </div>
         </div>
 
-        <!-- Serah Terima Jabatan Terakhir -->
+        <!-- Pembagian Role SIMAKIS Panel -->
         <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-xs p-5 sm:p-6 flex flex-col justify-between">
             <div>
                 <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                     <div>
-                        <h2 class="text-sm font-bold text-slate-900">Serah Terima Jabatan Terkini</h2>
-                        <p class="text-xs text-slate-400 mt-0.5">Dokumen serah terima dan status penyerahan tanggung jawab</p>
+                        <h2 class="text-sm font-bold text-slate-900">Pembagian Hak Akses &amp; Peran SIMAKIS</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Struktur otorisasi dan tanggung jawab operasional sistem dealer</p>
                     </div>
-                    <a href="{{ route('supervisor.handovers.index') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
-                        Lihat Semua &rarr;
+                    <a href="{{ route('users.index') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
+                        Atur Role &rarr;
                     </a>
                 </div>
 
-                <div class="mt-4 divide-y divide-slate-100">
-                    @forelse($recentHandovers ?? [] as $sh)
-                        <div class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div class="flex items-start gap-3">
-                                <div class="h-9 w-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-xs shrink-0">
-                                    STJ
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="font-bold text-xs text-slate-900">{{ $sh->nomor_serah_terima }}</span>
-                                        <span class="px-2 py-0.5 rounded-md text-2xs font-bold border {{ $sh->status_badge['bg'] }}">
-                                            {{ $sh->status_badge['label'] }}
-                                        </span>
-                                    </div>
-                                    <p class="text-xs text-slate-600 mt-0.5">
-                                        <span class="font-semibold text-slate-800">{{ $sh->supervisorLama?->nama ?? 'Supervisor Lama' }}</span>
-                                        <span class="text-slate-400 mx-1">&rarr;</span>
-                                        <span class="font-semibold text-blue-600">{{ $sh->supervisorBaru?->nama ?? 'Supervisor Baru' }}</span>
-                                    </p>
-                                    <p class="text-2xs text-slate-400 mt-0.5">
-                                        Tanggal: {{ $sh->tanggal_serah_terima?->format('d M Y') }} &bull; Alasan: {{ Str::limit($sh->alasan_pergantian, 45) }}
-                                    </p>
-                                </div>
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <!-- Super Admin Box -->
+                    <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-2 py-0.5 rounded text-2xs font-extrabold bg-purple-100 text-purple-800 border border-purple-200">
+                                    SUPER ADMIN
+                                </span>
+                                <span class="text-xs font-bold text-purple-700">{{ $totalSuperAdmin ?? 0 }} Akun</span>
                             </div>
-                            <div class="shrink-0 flex items-center gap-2">
-                                <a href="{{ route('supervisor.handovers.show', $sh->id) }}"
-                                   class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors">
-                                    Buka Dokumen
-                                </a>
+                            <h3 class="text-xs font-bold text-slate-900">Manajemen Akses &amp; Akun</h3>
+                            <ul class="mt-2 space-y-1.5 text-2xs text-slate-600 leading-relaxed list-disc list-inside">
+                                <li>Pengelolaan akun pengguna &amp; role</li>
+                                <li>Aktivasi / nonaktivasi status akun</li>
+                                <li>Audit jejak log aktivitas sistem</li>
+                                <li class="text-rose-600 font-semibold">Bebas dari beban transaksi/prospek</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Supervisor Box -->
+                    <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-2 py-0.5 rounded text-2xs font-extrabold bg-blue-100 text-blue-800 border border-blue-200">
+                                    SUPERVISOR
+                                </span>
+                                <span class="text-xs font-bold text-blue-700">{{ $totalSupervisor ?? 0 }} Akun</span>
                             </div>
+                            <h3 class="text-xs font-bold text-slate-900">Manajemen Kinerja Sales</h3>
+                            <ul class="mt-2 space-y-1.5 text-2xs text-slate-600 leading-relaxed list-disc list-inside">
+                                <li>Monitoring prospek &amp; penjualan</li>
+                                <li>Pengaturan target &amp; verifikasi reward</li>
+                                <li>Evaluasi kinerja &amp; ranking sales</li>
+                                <li>Pengelolaan rapat mingguan dealer</li>
+                            </ul>
                         </div>
-                    @empty
-                        <div class="text-center py-8 text-slate-400">
-                            <p class="text-xs">Belum ada dokumen serah terima jabatan yang dibuat.</p>
-                            <a href="{{ route('supervisor.handovers.create') }}" class="inline-block mt-2 text-xs font-bold text-blue-600 hover:underline">
-                                + Buat Dokumen Baru
-                            </a>
+                    </div>
+
+                    <!-- Sales Box -->
+                    <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-2 py-0.5 rounded text-2xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                    SALES
+                                </span>
+                                <span class="text-xs font-bold text-emerald-700">{{ $totalSales ?? 0 }} Akun</span>
+                            </div>
+                            <h3 class="text-xs font-bold text-slate-900">Pelaksana Operasional</h3>
+                            <ul class="mt-2 space-y-1.5 text-2xs text-slate-600 leading-relaxed list-disc list-inside">
+                                <li>Input prospek &amp; follow-up konsumen</li>
+                                <li>Pencatatan realisasi transaksi unit</li>
+                                <li>Pantau target 15 unit &amp; reward</li>
+                                <li>Training &amp; tes mingguan kompetensi</li>
+                            </ul>
                         </div>
-                    @endforelse
+                    </div>
                 </div>
             </div>
 
             <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
-                <a href="{{ route('supervisor.handovers.create') }}" class="text-xs font-bold text-indigo-600 hover:text-indigo-700">
-                    + Buat Dokumen Serah Terima Baru &rarr;
+                <a href="{{ route('users.index') }}" class="text-xs font-bold text-indigo-600 hover:text-indigo-700">
+                    Buka Manajemen Pengguna &rarr;
                 </a>
             </div>
         </div>
@@ -275,7 +287,7 @@
                     </svg>
                     Audit Log Aktivitas Terkini (Real-time)
                 </h2>
-                <p class="text-xs text-slate-400 mt-0.5">Catatan aktivitas perubahan data, autentikasi, transaksi, dan wewenang pengguna</p>
+                <p class="text-xs text-slate-400 mt-0.5">Catatan aktivitas perubahan akun, hak akses, status pengguna, dan autentikasi</p>
             </div>
             <a href="{{ route('activity-logs.index') }}" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
                 Lihat Seluruh Log &rarr;
@@ -336,4 +348,3 @@
 
 </div>
 @endsection
-

@@ -17,8 +17,6 @@ use App\Models\SalesReward;
 use App\Models\SalesTarget;
 use App\Models\SalesTransaction;
 use App\Models\Source;
-use App\Models\SupervisorHandover;
-use App\Models\SupervisorHistory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
@@ -110,12 +108,6 @@ class DashboardController extends Controller
             $totalSuperAdmin = User::where('peran', User::ROLE_SUPER_ADMIN)->count();
 
             $activeSupervisor = User::where('peran', User::ROLE_SUPERVISOR)->where('status_aktif', true)->first();
-            $activeSupervisorHistory = $activeSupervisor ? SupervisorHistory::where('user_id', $activeSupervisor->id)->where('status_jabatan', 'aktif')->first() : null;
-
-            $totalHandovers = SupervisorHandover::count();
-            $pendingHandovers = SupervisorHandover::whereIn('status', ['menunggu_serah_terima', 'dalam_proses'])->count();
-            $completedHandovers = SupervisorHandover::where('status', 'selesai')->count();
-            $recentHandovers = SupervisorHandover::with(['supervisorLama', 'supervisorBaru'])->latest('tanggal_serah_terima')->take(4)->get();
 
             $totalLogsCount = ActivityLog::count();
             $todayLogsCount = ActivityLog::whereDate('created_at', Carbon::today())->count();
@@ -129,11 +121,6 @@ class DashboardController extends Controller
                 'totalSupervisor',
                 'totalSuperAdmin',
                 'activeSupervisor',
-                'activeSupervisorHistory',
-                'totalHandovers',
-                'pendingHandovers',
-                'completedHandovers',
-                'recentHandovers',
                 'totalLogsCount',
                 'todayLogsCount',
                 'recentLogs',

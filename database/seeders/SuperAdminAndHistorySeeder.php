@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\SupervisorHistory;
 use App\Models\User;
 use App\Services\ActivityLogService;
 use Illuminate\Database\Seeder;
@@ -25,33 +24,13 @@ class SuperAdminAndHistorySeeder extends Seeder
             ]
         );
 
-        // 2. Ensure existing supervisor has history
-        $supervisor = User::where('peran', User::ROLE_SUPERVISOR)->first();
-        if ($supervisor) {
-            $existingHistory = SupervisorHistory::where('user_id', $supervisor->id)
-                ->where('status_jabatan', 'aktif')
-                ->first();
-
-            if (!$existingHistory) {
-                SupervisorHistory::create([
-                    'user_id' => $supervisor->id,
-                    'super_admin_id' => $superAdmin->id,
-                    'tanggal_mulai' => '2026-01-01',
-                    'status_jabatan' => 'aktif',
-                    'alasan_pergantian' => 'Penetapan awal Supervisor Operasional SIMAKIS',
-                    'catatan' => 'Supervisor aktif memimpin tim sales Yamaha JG Purwakarta.',
-                ]);
-            }
-        }
-
-        // 3. Log the system seed initialization
+        // 2. Log the system seed initialization
         ActivityLogService::log(
             activityType: 'tambah',
             module: 'pengguna',
-            description: 'Inisialisasi akun Super Admin dan pencatatan masa jabatan Supervisor awal.',
+            description: 'Inisialisasi akun Super Admin SIMAKIS.',
             record: $superAdmin,
             overrideUser: $superAdmin
         );
     }
 }
-

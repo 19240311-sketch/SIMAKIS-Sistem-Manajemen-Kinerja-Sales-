@@ -24,9 +24,9 @@ class ActivityLogController extends Controller
         $query = ActivityLog::with('user')->orderBy('created_at', 'desc')->orderBy('id', 'desc');
 
         // 1. Role-based scoping
-        if ($user->isSupervisor()) {
+        if ($user->isSupervisor() || $user->isSuperAdmin()) {
             // Super Admin and Supervisor have complete, unrestricted access to ALL system logs
-            // Allows Supervisor full transparency to oversee any user or admin actions
+            // Allows full transparency to oversee system and user actions
             if ($request->filled('user_id')) {
                 $query->where('user_id', $request->user_id);
             }
@@ -63,7 +63,7 @@ class ActivityLogController extends Controller
 
         // Summary counts (calculated based on allowed scope)
         $scopedBase = ActivityLog::query();
-        if (!$user->isSupervisor()) {
+        if (!$user->isSupervisor() && !$user->isSuperAdmin()) {
             // Only Sales users are scoped to their own logs
             $scopedBase->where('user_id', $user->id);
         }
@@ -79,7 +79,7 @@ class ActivityLogController extends Controller
 
         // Dropdown data for filters
         $usersList = [];
-        if ($user->isSupervisor()) {
+        if ($user->isSupervisor() || $user->isSuperAdmin()) {
             // Super Admin and Supervisor can filter all registered users
             $usersList = User::orderBy('nama')->get();
         }
@@ -129,7 +129,7 @@ class ActivityLogController extends Controller
         $log = ActivityLog::with('user')->findOrFail($id);
 
         // Security check: Super Admin and Supervisor have complete audit transparency
-        if (!$user->isSupervisor()) {
+        if (!$user->isSupervisor() && !$user->isSuperAdmin()) {
             if ($log->user_id !== $user->id) {
                 abort(403, 'Akses ditolak.');
             }

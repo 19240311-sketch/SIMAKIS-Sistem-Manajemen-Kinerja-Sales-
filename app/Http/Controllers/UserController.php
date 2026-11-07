@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $currentUser = Auth::user();
 
-        $users = User::withCount(['prospects', 'salesTransactions', 'supervisorHistories'])
+        $users = User::withCount(['prospects', 'salesTransactions'])
             ->orderByRaw("FIELD(peran, 'super_admin', 'supervisor', 'sales')")
             ->orderBy('nama')
             ->get();
@@ -198,14 +198,13 @@ class UserController extends Controller
             }
         }
 
-        // Critical history check: transactions, prospects, activities, supervisor histories
+        // Critical history check: transactions, prospects, activities
         $transactionCount = $user->salesTransactions()->count();
         $prospectCount = $user->prospects()->count();
         $activityCount = $user->prospectActivities()->count();
-        $supervisorHistoryCount = $user->supervisorHistories()->count();
 
-        if ($transactionCount > 0 || $prospectCount > 0 || $activityCount > 0 || $supervisorHistoryCount > 0) {
-            return back()->with('error', "Akun {$user->nama} tidak dapat dihapus karena memiliki riwayat operasional ({$transactionCount} transaksi, {$prospectCount} prospek, {$supervisorHistoryCount} riwayat jabatan). Silakan nonaktifkan akun ini jika sudah tidak aktif.");
+        if ($transactionCount > 0 || $prospectCount > 0 || $activityCount > 0) {
+            return back()->with('error', "Akun {$user->nama} tidak dapat dihapus karena memiliki riwayat operasional ({$transactionCount} transaksi, {$prospectCount} prospek). Silakan nonaktifkan akun ini jika sudah tidak aktif.");
         }
 
         $deletedName = $user->nama;

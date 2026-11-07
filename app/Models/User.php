@@ -97,7 +97,7 @@ class User extends Authenticatable
 
     public function isSupervisor(): bool
     {
-        return in_array($this->peran ?? $this->role, [self::ROLE_SUPERVISOR, self::ROLE_SUPER_ADMIN, 'admin']);
+        return in_array($this->peran ?? $this->role, [self::ROLE_SUPERVISOR, 'admin']);
     }
 
     public function isStrictSupervisor(): bool
@@ -138,21 +138,6 @@ class User extends Authenticatable
     public function activityLogs(): HasMany
     {
         return $this->hasMany(ActivityLog::class, 'user_id');
-    }
-
-    public function supervisorHistories(): HasMany
-    {
-        return $this->hasMany(SupervisorHistory::class, 'user_id');
-    }
-
-    public function supervisorHandoversAsOld(): HasMany
-    {
-        return $this->hasMany(SupervisorHandover::class, 'supervisor_lama_id');
-    }
-
-    public function supervisorHandoversAsNew(): HasMany
-    {
-        return $this->hasMany(SupervisorHandover::class, 'supervisor_baru_id');
     }
 
     public function prospects(): HasMany

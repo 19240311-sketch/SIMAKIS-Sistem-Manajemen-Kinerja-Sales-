@@ -26,16 +26,6 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-2.5">
-                @if(Auth::user()->isSuperAdmin())
-                <a href="{{ route('supervisor.history') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 shadow-xs transition-all active:scale-95">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
-                    </svg>
-                    <span>Pergantian Supervisor</span>
-                </a>
-                @endif
-
                 <button type="button" onclick="openCreateUserModal()"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all active:scale-95">
                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -157,11 +147,11 @@
                                 {{-- Hapus Aman (Super Admin Only) --}}
                                 @if(Auth::user()->isSuperAdmin() && auth()->id() !== $u->id)
                                     @php
-                                        $hasHistory = ($u->prospects_count > 0 || $u->sales_transactions_count > 0 || $u->supervisor_histories_count > 0);
+                                        $hasHistory = ($u->prospects_count > 0 || $u->sales_transactions_count > 0);
                                     @endphp
                                     @if($hasHistory)
                                         <button type="button"
-                                                title="Akun ini tidak dapat dihapus karena memiliki riwayat operasional (transaksi/prospek/jabatan). Silakan nonaktifkan akun."
+                                                title="Akun ini tidak dapat dihapus karena memiliki riwayat operasional (transaksi/prospek). Silakan nonaktifkan akun."
                                                 onclick="alert('Akun {{ addslashes($u->nama) }} tidak dapat dihapus dari database karena memiliki riwayat operasional ({{ $u->prospects_count }} prospek, {{ $u->sales_transactions_count }} transaksi). Silakan gunakan tombol Nonaktifkan agar data historis tetap aman.');"
                                                 class="px-2 py-1.5 rounded-lg bg-slate-100 text-slate-400 cursor-not-allowed font-medium text-2xs">
                                             Terkunci

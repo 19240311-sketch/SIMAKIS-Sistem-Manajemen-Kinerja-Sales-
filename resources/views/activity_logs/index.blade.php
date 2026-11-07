@@ -22,8 +22,8 @@
                     Log Aktivitas Sistem
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                    @if(Auth::user()->isSupervisor())
-                        Seluruh rekaman jejak audit sistem: login/logout, manipulasi data transaksi, prospek, pengguna, serta pergantian wewenang pimpinan.
+                    @if(Auth::user()->isSupervisor() || Auth::user()->isSuperAdmin())
+                        Seluruh rekaman jejak audit sistem: login/logout, manipulasi data transaksi, prospek, pengguna, serta perubahan akun dan hak akses.
                     @else
                         Riwayat aktivitas kerja pribadi Anda yang tercatat secara aman dalam sistem.
                     @endif
@@ -111,7 +111,7 @@
                 </div>
 
                 {{-- Filter Pengguna (Super Admin & Supervisor) --}}
-                @if(Auth::user()->isSupervisor())
+                @if(Auth::user()->isSupervisor() || Auth::user()->isSuperAdmin())
                 <div>
                     <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Pengguna</label>
                     <select name="user_id" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -126,7 +126,7 @@
                 @endif
 
                 {{-- Filter Role (Super Admin & Supervisor) --}}
-                @if(Auth::user()->isSupervisor())
+                @if(Auth::user()->isSupervisor() || Auth::user()->isSuperAdmin())
                 <div>
                     <label class="block text-2xs font-bold text-slate-500 uppercase tracking-wider mb-1">Role Pengguna</label>
                     <select name="role" class="w-full text-xs rounded-xl border border-slate-200 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">

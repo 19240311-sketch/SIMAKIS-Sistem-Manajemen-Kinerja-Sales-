@@ -8,7 +8,6 @@ use App\Models\Prospect;
 use App\Models\RewardProgram;
 use App\Models\SalesTarget;
 use App\Models\SalesTransaction;
-use App\Models\SupervisorHandover;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -175,26 +174,6 @@ class NotificationService
                         'badge' => "Kurang {$sisa} Unit",
                         'url' => $targetUrl,
                         'action_url' => $targetUrl,
-                    ]);
-                }
-            }
-
-            // 4. NOTIFIKASI SUPERVISOR: Penyerahan / Status Serah Terima Jabatan Pending
-            if ($user->isSupervisor()) {
-                $pendingHandovers = SupervisorHandover::where('status', 'menunggu_serah_terima')->count();
-                if ($pendingHandovers > 0) {
-                    $handoverUrl = route('supervisor.handovers.index');
-                    $notifications->push([
-                        'id' => 'handover_pending',
-                        'type' => 'handover',
-                        'level' => 'info',
-                        'icon' => 'document',
-                        'title' => 'Dokumen Serah Terima Jabatan',
-                        'message' => "Ada {$pendingHandovers} dokumen serah terima jabatan yang menunggu proses.",
-                        'time' => 'Perlu Tindakan',
-                        'badge' => "{$pendingHandovers} Dokumen",
-                        'url' => $handoverUrl,
-                        'action_url' => $handoverUrl,
                     ]);
                 }
             }

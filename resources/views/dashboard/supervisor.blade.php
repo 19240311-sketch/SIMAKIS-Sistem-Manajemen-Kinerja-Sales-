@@ -983,7 +983,7 @@
             <div>
                 <h3 class="text-sm font-bold text-amber-900">Mode Simulasi Presentasi Aktif</h3>
                 <p class="text-xs text-amber-800 mt-0.5">
-                    Terdapat <strong>{{ $demoDataCount }}</strong> data simulasi (<code>is_demo = true</code>) untuk kebutuhan presentasi dosen. Sebelum serah terima operasional mitra, data demo ini dapat dibersihkan secara aman tanpa memengaruhi akun asli.
+                    Terdapat <strong>{{ $demoDataCount }}</strong> data simulasi (<code>is_demo = true</code>) untuk kebutuhan presentasi dosen. Sebelum penggunaan operasional dealer, data demo ini dapat dibersihkan secara aman tanpa memengaruhi akun asli.
                 </p>
             </div>
         </div>
