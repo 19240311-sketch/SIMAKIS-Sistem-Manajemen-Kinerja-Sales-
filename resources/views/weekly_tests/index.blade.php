@@ -16,7 +16,7 @@
                     </svg>
                     <span>Evaluasi Rutin Sales Consultant</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                     Tes Online Mingguan
                 </h2>
                 <p class="text-blue-100 text-sm max-w-2xl font-normal leading-relaxed">
