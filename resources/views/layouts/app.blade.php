@@ -429,6 +429,8 @@
                     <span>{{ \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                 </div>
 
+                {{-- Notification Bell: hanya untuk Supervisor & Sales, bukan Super Admin --}}
+                @if(!auth()->user()->isSuperAdmin())
                 <!-- In-App Notification Bell (AJAX - tidak memperlambat page load) -->
                 <div class="relative" id="simakis-notif-container">
                     <button type="button"
@@ -484,6 +486,7 @@
                         </div>
                     </div>
                 </div>
+                @endif {{-- end: !isSuperAdmin --}}
 
                 <!-- User Dropdown Pill -->
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-2.5 pl-2 pr-3 py-1 rounded-full hover:bg-slate-100 transition border border-transparent hover:border-slate-200 group">
