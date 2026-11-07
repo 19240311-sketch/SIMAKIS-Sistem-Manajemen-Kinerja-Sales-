@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ubah Data Sales: ' . $sale->nama)
+@section('page-title', 'Edit Data Sales')
 
 @section('content')
 <div class="max-w-2xl mx-auto space-y-6">
@@ -14,8 +15,11 @@
                 Perbarui informasi akun, kontak, atau status aktif personil sales.
             </p>
         </div>
-        <a href="{{ route('sales.index') }}" class="text-xs font-bold text-slate-600 hover:text-slate-900">
-            &larr; Kembali
+        <a href="{{ route('sales.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-2xs transition">
+            <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            <span>Kembali ke Data Sales</span>
         </a>
     </div>
 

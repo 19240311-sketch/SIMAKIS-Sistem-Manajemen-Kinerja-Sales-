@@ -10,10 +10,13 @@
     <div class="mb-6 rounded-2xl bg-white p-5 shadow-sm border-2 border-slate-200">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <a href="{{ route('prospects.index') }}" class="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-slate-300 bg-white text-slate-700 hover:bg-blue-50 hover:text-[#1E3A8A] hover:border-blue-400 shadow-sm transition" title="Kembali ke Daftar">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                <a href="{{ route('prospects.index') }}"
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors shadow-2xs"
+                   title="Kembali ke Daftar Prospek">
+                    <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
+                    <span>Kembali</span>
                 </a>
                 <div>
                     <h2 class="text-heading-sm font-bold text-slate-900" id="headerTitle">
@@ -359,11 +362,15 @@
                 </div>
             </div>
 
-            <!-- Prominent Bottom Submit Button -->
-            <div class="pt-4">
+            <!-- Bottom Submit & Cancel Action -->
+            <div class="pt-4 flex flex-col-reverse sm:flex-row items-center gap-3">
+                <a href="{{ route('prospects.index') }}"
+                   class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-bold text-center transition shadow-2xs">
+                    Batal
+                </a>
                 <button type="submit"
-                        class="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#1E3A8A] py-4 text-base font-bold text-white shadow-md hover:bg-blue-900 hover:shadow-lg active:scale-[0.99] border-2 border-[#1E3A8A] transition cursor-pointer">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        class="flex-1 w-full flex items-center justify-center gap-2 rounded-xl bg-[#0A4DF3] py-3.5 px-6 text-sm font-bold text-white shadow-md hover:bg-blue-700 active:scale-[0.99] transition cursor-pointer">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Simpan Data Prospek</span>
@@ -755,11 +762,15 @@
                 </div>
             </div>
 
-            <!-- Prominent Bottom Submit Button Go To Deal -->
-            <div class="pt-4">
+            <!-- Bottom Submit & Cancel Action Go To Deal -->
+            <div class="pt-4 flex flex-col-reverse sm:flex-row items-center gap-3">
+                <a href="{{ route('prospects.index') }}"
+                   class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-sm font-bold text-center transition shadow-2xs">
+                    Batal
+                </a>
                 <button type="submit"
-                        class="w-full flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 py-4 text-base font-bold text-white shadow-md hover:bg-emerald-700 hover:shadow-lg active:scale-[0.99] border-2 border-emerald-600 transition cursor-pointer">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        class="flex-1 w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3.5 px-6 text-sm font-bold text-white shadow-md hover:bg-emerald-700 active:scale-[0.99] transition cursor-pointer">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>Simpan Transaksi Go To Deal</span>

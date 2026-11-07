@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Log Aktivitas Sistem — SIMAKIS Yamaha JG Purwakarta')
+@section('page-title', 'Log Aktivitas Sistem')
 
 @section('content')
 <div class="space-y-6 max-w-7xl mx-auto">
@@ -31,6 +32,13 @@
             </div>
 
             <div class="flex items-center gap-2 shrink-0">
+                <a href="{{ route('dashboard') }}"
+                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition">
+                    <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
                 <a href="{{ route('activity-logs.index') }}"
                    title="Reset seluruh filter pencarian"
                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors border border-slate-200">

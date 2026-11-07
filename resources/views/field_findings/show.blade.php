@@ -1,16 +1,18 @@
 @extends('layouts.app')
 
 @section('title', 'Detail Temuan Lapangan')
+@section('page-title', 'Detail Temuan Lapangan')
 
 @section('content')
 <div class="space-y-6 max-w-3xl mx-auto">
     <div class="bg-white p-5 rounded-2xl border border-hairline shadow-sm">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <a href="{{ route('field-findings.index') }}" class="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 transition">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                <a href="{{ route('field-findings.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-2xs transition shrink-0">
+                    <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
+                    <span>Kembali</span>
                 </a>
                 <div>
                     <h1 class="text-xl font-extrabold text-slate-900 tracking-tight">Detail Temuan Lapangan</h1>

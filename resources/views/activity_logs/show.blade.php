@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Detail Log Aktivitas #' . $log->id . ' — SIMAKIS Yamaha JG Purwakarta')
+@section('page-title', 'Detail Log Aktivitas')
 
 @section('content')
 <div class="space-y-6 max-w-4xl mx-auto">
@@ -11,9 +12,15 @@
     <div class="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-                <a href="{{ route('activity-logs.index') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 mb-2">
-                    &larr; Kembali ke Daftar Log Aktivitas
-                </a>
+                <div class="mb-3">
+                    <a href="{{ route('activity-logs.index') }}"
+                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition">
+                        <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                        <span>Kembali ke Log Aktivitas</span>
+                    </a>
+                </div>
                 <div class="flex items-center gap-3">
                     <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                         Detail Log Aktivitas #{{ $log->id }}

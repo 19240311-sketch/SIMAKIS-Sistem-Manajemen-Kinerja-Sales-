@@ -8,9 +8,9 @@
 
     <!-- Breadcrumb -->
     <div class="flex items-center justify-between">
-        <a href="{{ route('admin.trainings.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#1E3A8A] transition">
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        <a href="{{ route('admin.trainings.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-2xs transition">
+            <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             <span>Kembali ke Manajemen Training</span>
         </a>

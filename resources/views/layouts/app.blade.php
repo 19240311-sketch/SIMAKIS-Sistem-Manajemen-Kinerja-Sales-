@@ -403,20 +403,39 @@
         
         <!-- Modern Header / Top Bar -->
         <header class="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white/95 px-4 sm:px-6 lg:px-8 backdrop-blur shadow-xs">
-            <div class="flex items-center gap-3">
-                <button type="button" class="lg:hidden text-slate-700 hover:text-[#0A4DF3] p-2 rounded-xl border border-slate-200 hover:border-blue-300" onclick="toggleSidebar()">
+            <div class="flex items-center gap-2.5">
+                <button type="button" class="lg:hidden text-slate-700 hover:text-[#0A4DF3] p-2 rounded-xl border border-slate-200 hover:border-blue-300" onclick="toggleSidebar()" aria-label="Buka Menu Sidebar">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </button>
-                <div class="hidden sm:flex items-center gap-2 text-xs">
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-[#0A4DF3] font-bold border border-blue-100">
+
+                {{-- Mobile Quick Back: muncul di HP saat bukan di Dashboard utama --}}
+                @if(!request()->routeIs('dashboard'))
+                    <button type="button"
+                            onclick="if(window.history.length > 1) { window.history.back(); } else { window.location.href = '{{ route('dashboard') }}'; }"
+                            title="Kembali ke halaman sebelumnya"
+                            class="lg:hidden flex items-center justify-center p-2 rounded-xl border border-slate-200 text-slate-600 hover:text-[#0A4DF3] hover:bg-slate-50 transition shadow-2xs">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
+                    </button>
+                @endif
+
+                {{-- Dynamic Breadcrumb Bar --}}
+                <nav class="hidden sm:flex items-center gap-2 text-xs" aria-label="Breadcrumb">
+                    <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-[#0A4DF3] font-bold border border-blue-100 hover:bg-blue-100 transition">
                         <span class="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse"></span>
                         Yamaha JG Purwakarta
-                    </span>
-                    <span class="text-slate-300">/</span>
-                    <span class="font-medium text-slate-500">SIMAKIS Live System</span>
-                </div>
+                    </a>
+                    @hasSection('page-title')
+                        <span class="text-slate-300">/</span>
+                        <span class="font-medium text-slate-700">@yield('page-title')</span>
+                    @else
+                        <span class="text-slate-300">/</span>
+                        <span class="font-medium text-slate-500">SIMAKIS Live System</span>
+                    @endif
+                </nav>
             </div>
 
             <!-- Header Right Section -->

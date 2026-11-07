@@ -1,20 +1,22 @@
 @extends('layouts.app')
 
 @section('title', 'Buat Program Reward')
+@section('page-title', 'Buat Program Reward')
 
 @section('content')
 <div class="space-y-6 max-w-2xl mx-auto">
     <div class="bg-white p-5 rounded-2xl border border-hairline shadow-sm">
-        <div class="flex items-center gap-3">
-            <a href="{{ route('rewards.index') }}" class="h-8 w-8 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 transition">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                </svg>
-            </a>
+        <div class="flex items-center justify-between gap-3">
             <div>
                 <h1 class="text-xl font-extrabold text-slate-900 tracking-tight">Buat Program Reward</h1>
                 <p class="text-xs text-slate-500 mt-0.5">Atur program apresiasi untuk memotivasi kinerja terbaik sales.</p>
             </div>
+            <a href="{{ route('rewards.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs shadow-2xs transition shrink-0">
+                <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                <span>Kembali ke Reward</span>
+            </a>
         </div>
     </div>
 

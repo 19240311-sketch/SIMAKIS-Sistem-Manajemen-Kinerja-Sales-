@@ -8,9 +8,10 @@
 
     <!-- Top Navigation Header -->
     <div class="flex items-center justify-between flex-wrap gap-4">
-        <a href="{{ route('trainings.show', $training->id) }}" class="inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-[#0A4DF3] transition">
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        <a href="{{ route('trainings.show', $training->id) }}"
+           class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition-colors shadow-2xs">
+            <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             <span>Tonton Ulang Video</span>
         </a>

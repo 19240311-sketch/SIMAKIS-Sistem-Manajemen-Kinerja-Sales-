@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Catat Transaksi Penjualan Baru')
+@section('page-title', 'Catat Transaksi Penjualan')
 
 @section('content')
 <div class="max-w-3xl mx-auto space-y-6">
@@ -14,8 +15,12 @@
                 Input data penjualan unit yang valid untuk memperbarui realisasi target dan kinerja.
             </p>
         </div>
-        <a href="{{ route('transactions.index') }}" class="text-xs font-bold text-slate-600 hover:text-slate-900">
-            &larr; Kembali
+        <a href="{{ route('transactions.index') }}"
+           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition">
+            <svg class="h-3.5 w-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            <span>Kembali</span>
         </a>
     </div>
 
