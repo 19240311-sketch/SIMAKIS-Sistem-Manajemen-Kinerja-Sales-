@@ -177,48 +177,56 @@
 </div>{{-- /space-y-6 --}}
 
 {{-- ================================================================
-     MODAL: TAMBAH PENGGUNA
+     MODAL: TAMBAH PENGGUNA (Rapi, Proporsional & Nyaman Dilihat)
 ================================================================ --}}
 <div id="createUserModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden">
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
-            <div>
-                <h3 class="text-base font-extrabold text-slate-900">Tambah Pengguna Baru</h3>
-                <p class="text-xs text-slate-400 mt-0.5">Daftarkan akun pengguna SIMAKIS Yamaha JG Purwakarta</p>
+    <div class="w-full max-w-lg rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+        {{-- Modal Header --}}
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3.5 mb-4">
+            <div class="flex items-center gap-2.5">
+                <div class="h-9 w-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0 ring-1 ring-blue-100">
+                    <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.765l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-sm font-extrabold text-slate-900">Tambah Pengguna Baru</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Daftarkan akun pengguna sistem SIMAKIS Yamaha JG Purwakarta</p>
+                </div>
             </div>
-            <button type="button" onclick="closeCreateUserModal()" class="text-slate-400 hover:text-slate-600 p-1">
-                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
+            <button type="button" onclick="closeCreateUserModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition">
+                <svg class="h-4.5 w-4.5" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
             </button>
         </div>
 
-        <form action="{{ route('users.store') }}" method="POST" class="space-y-4 text-xs">
+        <form action="{{ route('users.store') }}" method="POST" class="space-y-3.5">
             @csrf
             <div>
-                <label for="name" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
+                <label for="name" class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
                 <input id="name" name="name" type="text" value="{{ old('name') }}" required
                        placeholder="Contoh: Rian Pratama"
-                       class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
             </div>
 
             <div>
-                <label for="email" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Alamat Email (Login) <span class="text-rose-500">*</span></label>
+                <label for="email" class="block text-xs font-semibold text-slate-700 mb-1">Alamat Email (Login) <span class="text-rose-500">*</span></label>
                 <input id="email" name="email" type="email" value="{{ old('email') }}" required
                        placeholder="rian@yamaha.co.id"
-                       class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
             </div>
 
             <div>
-                <label for="password" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Kata Sandi <span class="text-rose-500">*</span></label>
+                <label for="password" class="block text-xs font-semibold text-slate-700 mb-1">Kata Sandi <span class="text-rose-500">*</span></label>
                 <input id="password" name="password" type="password" required
                        placeholder="Minimal 6 karakter"
-                       class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                    <label for="role" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Peran (Role) <span class="text-rose-500">*</span></label>
+                    <label for="role" class="block text-xs font-semibold text-slate-700 mb-1">Peran (Role) <span class="text-rose-500">*</span></label>
                     <select id="role" name="role" required
-                            class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
                         <option value="sales">Sales</option>
                         <option value="supervisor">Supervisor</option>
                         @if(Auth::user()->isSuperAdmin())
@@ -227,20 +235,23 @@
                     </select>
                 </div>
                 <div>
-                    <label for="cabang" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Cabang Dealer</label>
+                    <label for="cabang" class="block text-xs font-semibold text-slate-700 mb-1">Cabang Dealer</label>
                     <input id="cabang" name="cabang" type="text" value="Yamaha JG Purwakarta"
-                           class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
                 </div>
             </div>
 
-            <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100">
+            <div class="flex items-center justify-end gap-2.5 pt-3.5 border-t border-slate-100">
                 <button type="button" onclick="closeCreateUserModal()"
-                        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors">
+                        class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition shadow-2xs">
                     Batal
                 </button>
                 <button type="submit"
-                        class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-colors">
-                    Daftarkan Akun
+                        class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition active:scale-95 inline-flex items-center gap-1.5">
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    <span>Daftarkan Akun</span>
                 </button>
             </div>
         </form>
@@ -248,48 +259,59 @@
 </div>
 
 {{-- ================================================================
-     MODAL: UBAH PENGGUNA
+     MODAL: UBAH PENGGUNA (Rapi, Proporsional & Nyaman Dilihat)
 ================================================================ --}}
 <div id="editUserModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden">
-    <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
-            <div>
-                <h3 class="text-base font-extrabold text-slate-900">Ubah Data Pengguna</h3>
-                <p class="text-xs text-slate-400 mt-0.5">Perbarui profil, hak akses, atau status akun</p>
+    <div class="w-full max-w-lg rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+        {{-- Modal Header --}}
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3.5 mb-4">
+            <div class="flex items-center gap-2.5">
+                <div class="h-9 w-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold shrink-0 ring-1 ring-indigo-100">
+                    <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-sm font-extrabold text-slate-900">Ubah Data Pengguna</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Perbarui profil pengguna, peran akses, dan status operasional</p>
+                </div>
             </div>
-            <button type="button" onclick="closeEditUserModal()" class="text-slate-400 hover:text-slate-600 p-1">
-                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
+            <button type="button" onclick="closeEditUserModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition">
+                <svg class="h-4.5 w-4.5" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>
             </button>
         </div>
 
-        <form id="editUserForm" method="POST" class="space-y-4 text-xs">
+        <form id="editUserForm" method="POST" class="space-y-3.5">
             @csrf
             @method('PUT')
 
             <div>
-                <label for="edit_user_name" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
+                <label for="edit_user_name" class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap <span class="text-rose-500">*</span></label>
                 <input id="edit_user_name" name="name" type="text" required
-                       class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
             </div>
 
             <div>
-                <label for="edit_user_email" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Alamat Email <span class="text-rose-500">*</span></label>
+                <label for="edit_user_email" class="block text-xs font-semibold text-slate-700 mb-1">Alamat Email (Login) <span class="text-rose-500">*</span></label>
                 <input id="edit_user_email" name="email" type="email" required
-                       class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
             </div>
 
             <div>
-                <label for="edit_user_password" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Ganti Kata Sandi (Opsional)</label>
+                <div class="flex items-center justify-between mb-1">
+                    <label for="edit_user_password" class="text-xs font-semibold text-slate-700">Ganti Kata Sandi</label>
+                    <span class="text-[11px] text-slate-400 font-normal">Opsional</span>
+                </div>
                 <input id="edit_user_password" name="password" type="password"
-                       placeholder="Kosongkan jika sandi tidak diubah"
-                       class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       placeholder="Kosongkan jika kata sandi tidak diubah"
+                       class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                    <label for="edit_user_role" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Peran (Role) <span class="text-rose-500">*</span></label>
+                    <label for="edit_user_role" class="block text-xs font-semibold text-slate-700 mb-1">Peran (Role) <span class="text-rose-500">*</span></label>
                     <select id="edit_user_role" name="role" required
-                            class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
                         <option value="sales">Sales</option>
                         <option value="supervisor">Supervisor</option>
                         @if(Auth::user()->isSuperAdmin())
@@ -299,36 +321,40 @@
                 </div>
 
                 <div>
-                    <label for="edit_user_is_active" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Status Akun</label>
+                    <label for="edit_user_is_active" class="block text-xs font-semibold text-slate-700 mb-1">Status Akun</label>
                     <select id="edit_user_is_active" name="is_active"
-                            class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
                         <option value="1">Aktif (Dapat Login)</option>
                         <option value="0">Nonaktif (Akses Dicegah)</option>
                     </select>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                    <label for="edit_user_cabang" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Cabang</label>
+                    <label for="edit_user_cabang" class="block text-xs font-semibold text-slate-700 mb-1">Cabang Dealer</label>
                     <input id="edit_user_cabang" name="cabang" type="text"
-                           class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
                 </div>
                 <div>
-                    <label for="edit_user_no_hp" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">No. WhatsApp/HP</label>
+                    <label for="edit_user_no_hp" class="block text-xs font-semibold text-slate-700 mb-1">No. WhatsApp / HP</label>
                     <input id="edit_user_no_hp" name="no_hp" type="text"
-                           class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           placeholder="Contoh: 08123456789"
+                           class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition shadow-2xs">
                 </div>
             </div>
 
-            <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100">
+            <div class="flex items-center justify-end gap-2.5 pt-3.5 border-t border-slate-100">
                 <button type="button" onclick="closeEditUserModal()"
-                        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors">
+                        class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition shadow-2xs">
                     Batal
                 </button>
                 <button type="submit"
-                        class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-colors">
-                    Simpan Perubahan
+                        class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition active:scale-95 inline-flex items-center gap-1.5">
+                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                    <span>Simpan Perubahan</span>
                 </button>
             </div>
         </form>
